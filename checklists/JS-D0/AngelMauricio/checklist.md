@@ -7,7 +7,7 @@ estado: en_progreso
 loom: (agregar link al terminar)
 ---
 ## Secciones
-- [ ] A — Repositorio local y primeros commits
+- [x] A — Repositorio local y primeros commits
 - [ ] B — Conectar a GitHub y push
 - [ ] C — Clonar el repositorio del compañero
 - [ ] D — git status y git log como hábito
