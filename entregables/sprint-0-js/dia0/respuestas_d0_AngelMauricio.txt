@@ -1,0 +1,2 @@
+FEEDBACK:SeccionD: Me trabé con la ruta al hacer git add, pero lo solucioné indicando la carpeta correcta.
+FEEDBACK:SeccionE: La evaluación se realizó correctamente y sin bloqueos técnicos.

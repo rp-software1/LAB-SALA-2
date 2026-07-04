@@ -1,0 +1,6 @@
+EVALUADOR: Angel Lecarnaque Mauricio
+EVALUADO: [Eduardo Martinez]
+ESCENARIO ELEGIDO: N° [1]
+RESUMEN DE LA RESPUESTA: [Mi compañero explicó bien cómo funciona el git add y por qué es necesario preparar los archivos antes del commit.]
+QUÉ ENTENDIÓ BIEN: [La diferencia entre lo que está "staged" y lo que no.]
+QUÉ NECESITA REPASAR: [un poco más de práctica con los comandos de terminal para no confundirse con las rutas.]
