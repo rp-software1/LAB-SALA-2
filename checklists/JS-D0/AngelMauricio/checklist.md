@@ -3,8 +3,8 @@ alumno: [AngelMauricio]
 sala: LAB-SALA-2
 curso: JS
 dia: 0
-estado: estado: completado
-loom: (agregar link al terminar)
+estado:  completado
+loom: (No requerido)
 ---
 ## Secciones
 - [x] A — Repositorio local y primeros commits
