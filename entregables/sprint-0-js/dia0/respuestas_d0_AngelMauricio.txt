@@ -6,3 +6,9 @@ FEEDBACK:BloqueA: No se permite la reasignacion y aparece un error: TypeErorr: A
 FEEDBACK:SecciónB: Si, logramos terminar las funciones, aunque me costo un poco arrancar, despues fluyo bien.
 FEEDBACK:SecciónB: al principio me confundí un poco con los pasos, pero luego de leerlo otra vez quedo claro.
 FEEDBACK:SecciónB: No.no hubo contradicciones
+FEEDBACK:BloqueC:  ¿Por qué es mejor tener un objeto plato que tres variables separadas? Den al menos dos razones.
+FEEDBACK:Primero, porque todo queda mucho mas organizado y relacionado en un solo lugar en vez de tener cosas sueltas por ahi 
+FEEDBACK: y segundo, porque es mas facil de manejar y pasar como dato cuando necesitas mover toda la informacion del plato junta.
+FEEDBACK:  Si declaran el objeto con const, ¿pueden modificar plato.stock? ¿Por qué?
+FEEDBACK: si se puede cambiarlo 
+FEEDBACK: Aunque el objeto sea const , lo que no podemos hacer es cambiar el objeto completo(reasignarlo), pero si nos deja cambiar el valor de sus propiedades internas sin problema
