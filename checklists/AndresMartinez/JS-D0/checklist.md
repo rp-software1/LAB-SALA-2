@@ -3,7 +3,7 @@ alumno: [AndresMartinez]
 sala: LAB-SALA-2
 curso: JS
 dia: 0
-estado: en_progreso
+estado: estado: completado
 loom: (agregar link al terminar)
 ---
 ## Secciones
@@ -12,4 +12,4 @@ loom: (agregar link al terminar)
 - [x] C — Clonar el repositorio del compañero
 - [x] D — git status y git log como hábito
 - [x] E — Evaluación entre pares
-- [ ] F — Cierre del día
+- [x] F — Cierre del día
