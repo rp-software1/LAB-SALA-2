@@ -2,6 +2,7 @@ FEEDBACK:SeccionD: Me confundí horrible con las rutas al hacer el git add, me s
 FEEDBACK:SeccionE: Al principio me hice un lío con el push porque se me mezclaron los cambios de mi compañero, pero al final pude rescatar mis archivos usando git reflog.
 FEEDBACK:BloqueA: const es para valores que no cambian, como el nombre del restaurante  lef es para valores que si cambiaran , como la cantidad de platos pedidos:lef platosPedidos = 0;
 FEEDBACK:BloqueA: No se permite la reasignacion y aparece un error: TypeErorr: Asiignment to constant variable.
-FEEDBACK:SecciónB: al principio me confundí un poco con los pasos, pero luego de leerlo otra vez quedo claro.
-FEEDBACK:SecciónB: No.no hubo contradicciones, al final todo encajo bien con lo que pedian
+, al final todo encajo bien con lo que pedian
 FEEDBACK:SecciónB: Si, logramos terminar las funciones, aunque me costo un poco arrancar, despues fluyo bien.
+FEEDBACK:SecciónB: al principio me confundí un poco con los pasos, pero luego de leerlo otra vez quedo claro.
+FEEDBACK:SecciónB: No.no hubo contradicciones
