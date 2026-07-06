@@ -12,3 +12,11 @@ FEEDBACK: y segundo, porque es mas facil de manejar y pasar como dato cuando nec
 FEEDBACK:  Si declaran el objeto con const, ¿pueden modificar plato.stock? ¿Por qué?
 FEEDBACK: si se puede cambiarlo 
 FEEDBACK: Aunque el objeto sea const , lo que no podemos hacer es cambiar el objeto completo(reasignarlo), pero si nos deja cambiar el valor de sus propiedades internas sin problema
+FEEDBACK: ¿Algo en la instrucción no quedó claro o fue confuso? ¿Qué frase o paso?
+FEEDBACK:La duplicidad en el YAML: El error en image_ed106e.png ocurrió porque intentaste editar el archivo escribiendo estado: estado: completado. En archivos de configuración como este (YAML), el formato es muy estricto: solo debe haber una clave y un valor. Al poner "estado" dos veces, el sistema no supo cómo procesarlo y lanzó el error de mapping values.
+
+La falta de claridad sobre el video: La confusión sobre si el video era necesario o no provocó dudas sobre qué poner en el campo loom:. Al no tener una instrucción clara de qué hacer cuando un entregable es opcional, el archivo quedó en un estado "a medias" que no validaba el formato.
+FEEDBACK:¿Hubo contradicciones?
+No hubo una contradicción directa en las instrucciones del sistema, pero sí una fricción técnica:
+FEEDBACK:¿Dónde se trabaron?
+El punto exacto de bloqueo fue la validación del formato en GitHub.
