@@ -4,3 +4,13 @@ ESCENARIO ELEGIDO: N° [1]
 RESUMEN DE LA RESPUESTA: [Mi compañero explicó bien cómo funciona el git add y por qué es necesario preparar los archivos antes del commit.]
 QUÉ ENTENDIÓ BIEN: [La diferencia entre lo que está "staged" y lo que no.]
 QUÉ NECESITA REPASAR: [un poco más de práctica con los comandos de terminal para no confundirse con las rutas.]
+
+
+TARJETA DE EVALUACIÓN — completar y subir a entregables/
+EVALUADOR: Mathias Vargas
+EVALUADO: Angel Mauricio
+ESCENARIO ELEGIDO: B
+RESUMEN DE LA RESPUESTA:La verdad es que al principio nos hicimos un lío tremendo con el cambio de escenario y nos costó arrancar porque no sabíamos bien quién empezaba. Una vez que nos aclaramos, lograste exponer los puntos clave, aunque se notó que todavía tenías la duda de la primera parte en la cabeza.
+QUÉ ENTENDIÓ BIEN (Me quedó clarísimo cómo manejaste la parte técnica del escenario, ahí sí dominaste el tema sin problemas.):
+QUÉ NECESITA REPASAR (Tienes que darle una vuelta a la estructura de la introducción para que no nos pase lo de la confusión inicial y estemos los dos en la misma página desde el segundo uno.):
+

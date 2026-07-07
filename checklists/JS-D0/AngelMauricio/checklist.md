@@ -27,7 +27,7 @@ loom: (agregar link al terminar)
 ## Secciones
 - [x] A — Variables
 - [x] B — Funciones
-- [ ] C — Objeto plato del restaurante
-- [ ] D — Exploración con IA
-- [ ] E — Evaluación entre pares
+- [x] C — Objeto plato del restaurante
+- [x] D — Exploración con IA
+- [x] E — Evaluación entre pares
 - [ ] F — Cierre del día
