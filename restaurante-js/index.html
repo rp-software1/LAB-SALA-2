@@ -1,18 +1,40 @@
 <!doctype html>
 <html lang="es">
 <head>
- <meta charset="utf-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1" />
- <title>charito</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestión de Restaurante - Charito</title>
 </head>
 <body>
- <h1>Menú del Restaurante</h1>
 
- <button id="btnMostrar">Mostrar menú</button>
- <button id="btnAgregar">Agregar plato demo</button>
+    <header>
+        <h1>Menú del Restaurante</h1>
+    </header>
 
- <div id="output"></div>
+    <section id="acciones-principales">
+        <button id="btnMostrar">Mostrar menú</button>
+        <button id="btnAgregar">Agregar plato demo</button>
+    </section>
 
- <script src="./app.js"></script>
+    <hr>
+
+    <section id="herramientas">
+        <h2>Herramientas</h2>
+        
+        <div>
+            <input type="text" id="inputBuscar" placeholder="Buscar plato por nombre" />
+            <button id="btnBuscar">Buscar</button>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <button id="btnStockBajo">Ver stock bajo (<= 3)</button>
+            <button id="btnResumen">Ver resumen</button>
+        </div>
+    </section>
+
+    <main id="output" style="margin-top: 20px;">
+        </main>
+
+    <script src="./app.js"></script>
 </body>
 </html>
