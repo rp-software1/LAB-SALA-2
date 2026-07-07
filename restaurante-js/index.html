@@ -4,6 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Gestión de Restaurante - Charito</title>
+    <style>
+        /* Clases para los estados de stock */
+        .normal { color: black; }
+        .bajo { color: orange; font-weight: bold; }
+        .agotado { color: red; font-weight: bold; }
+    </style>
 </head>
 <body>
 
@@ -30,10 +36,16 @@
             <button id="btnStockBajo">Ver stock bajo (<= 3)</button>
             <button id="btnResumen">Ver resumen</button>
         </div>
+
+        <div style="margin-top: 15px; padding: 10px; border: 1px solid #ccc; width: fit-content;">
+            <h3>Vender Plato</h3>
+            <input id="inputVentaNombre" placeholder="Nombre del plato" />
+            <input id="inputVentaCantidad" type="number" placeholder="Cantidad" />
+            <button id="btnVender">Vender</button>
+        </div>
     </section>
 
-    <main id="output" style="margin-top: 20px;">
-        </main>
+    <main id="output" style="margin-top: 20px;"></main>
 
     <script src="./app.js"></script>
 </body>

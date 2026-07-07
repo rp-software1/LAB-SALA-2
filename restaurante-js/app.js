@@ -10,31 +10,55 @@ let menu = [
 // 2) FUNCIONES DE RENDERIZADO
 function renderMenu() {
     const output = document.getElementById("output");
-    let html = "<h2>Menú Completo</h2><ul>";
+    let html = "<h2>Menú del Restaurante</h2><ul>";
+    
     for (const plato of menu) {
-        html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
+        let estado = "";
+        let clase = "";
+        
+        if (plato.stock === 0) {
+            estado = "AGOTADO";
+            clase = "agotado";
+        } else if (plato.stock <= 3) {
+            estado = "Stock bajo";
+            clase = "bajo";
+        } else {
+            estado = "Disponible";
+            clase = "normal";
+        }
+        
+        html += `
+            <li class="${clase}">
+                <strong>${plato.nombre}</strong><br>
+                Precio: S/ ${plato.precio}<br>
+                Stock: ${plato.stock}<br>
+                Estado: ${estado}
+            </li><br>
+        `;
     }
-    html += "</ul>";
+    html += `</ul><hr><h3>Total de platos: ${contarPlatos()}</h3>`;
     output.innerHTML = html;
 }
 
 function renderLista(titulo, listaDeTextos) {
     const output = document.getElementById("output");
-    let html = `<h2>${titulo}</h2>`;
-    
+    let html = `<h2>${titulo}</h2><ul>`;
     if (listaDeTextos.length === 0) {
         html += "<p>No hay elementos para mostrar</p>";
     } else {
-        html += "<ul>";
         for (const texto of listaDeTextos) {
             html += `<li>${texto}</li>`;
         }
-        html += "</ul>";
     }
+    html += "</ul>";
     output.innerHTML = html;
 }
 
 // 3) LÓGICA DE NEGOCIO
+function contarPlatos() {
+    return menu.length;
+}
+
 function agregarPlatoDemo() {
     menu.push({ nombre: "Causa", precio: 5, stock: 7 });
 }
@@ -55,18 +79,40 @@ function buscarPlatoPorNombre(nombre) {
 }
 
 function obtenerResumenMenu() {
-    const total = menu.length;
-    renderLista("Resumen del Menú", [`Total de platos registrados: ${total}`]);
+    renderLista("Resumen del Menú", [`Total de platos registrados: ${menu.length}`]);
 }
 
 function venderPlato(nombre, cantidad) {
     const plato = menu.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
     if (plato && plato.stock >= cantidad) {
         plato.stock -= cantidad;
-        renderMenu(); // Actualiza la pantalla para ver el stock nuevo
+        renderMenu();
         alert("¡Venta realizada con éxito!");
     } else {
         alert("Error: Plato no encontrado o stock insuficiente.");
+    }
+}
+
+// FUNCIÓN CORREGIDA (Ahora está fuera de venderPlato)
+function verificarEstadoGeneral() {
+    let agotados = 0;
+    let stockBajo = 0;
+
+    for (let i = 0; i < menu.length; i++) {
+        if (menu[i].stock === 0) {
+            agotados++;
+        } else if (menu[i].stock <= 3) {
+            stockBajo++;
+        }
+    }
+
+    const output = document.getElementById("output");
+    if (agotados > 0) {
+        output.innerHTML = "<h2>¡Atención: Hay platos agotados!</h2>";
+    } else if (stockBajo > 0) {
+        output.innerHTML = "<h2>Hay platos con stock bajo</h2>";
+    } else {
+        output.innerHTML = "<h2>Todo disponible</h2>";
     }
 }
 
@@ -79,12 +125,17 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
 });
 document.getElementById("btnStockBajo").addEventListener("click", filtrarStockBajo);
 document.getElementById("btnResumen").addEventListener("click", obtenerResumenMenu);
+
+// Botón nuevo para verificar estado general (agregado)
+// Nota: Asegúrate de tener un botón con id="btnVerificar" en tu HTML
+// document.getElementById("btnVerificar").addEventListener("click", verificarEstadoGeneral);
+
 document.getElementById("btnVender").addEventListener("click", () => {
     const nombre = document.getElementById("inputVentaNombre").value;
     const cantidad = Number(document.getElementById("inputVentaCantidad").value);
     if (nombre.trim() !== "" && cantidad > 0) {
         venderPlato(nombre, cantidad);
     } else {
-        alert("Ingrese datos válidos para la venta.");
+        alert("Ingrese datos válidos.");
     }
 });
