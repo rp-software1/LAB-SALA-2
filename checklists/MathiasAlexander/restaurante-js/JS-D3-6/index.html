@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante El Sabor Peruano</title>
+
+    <style>
+        .normal {
+            color: black;
+        }
+
+        .bajo {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .agotado {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Restaurante El Sabor Peruano</h1>
+
+    <button id="btnMostrar">Mostrar menú</button>
+    <button id="btnAgregar">Agregar plato demo</button>
+
+    <hr>
+
+    <h2>Buscar plato</h2>
+
+    <input
+        type="text"
+        id="inputBuscar"
+        placeholder="Nombre del plato">
+
+    <button id="btnBuscar">Buscar</button>
+
+    <hr>
+
+    <button id="btnStockBajo">
+        Ver stock bajo
+    </button>
+
+    <button id="btnResumen">
+        Ver resumen
+    </button>
+
+    <hr>
+
+    <h2>Vender plato</h2>
+
+    <input
+        type="text"
+        id="inputVentaNombre"
+        placeholder="Nombre del plato">
+
+    <input
+        type="number"
+        id="inputVentaCantidad"
+        placeholder="Cantidad">
+
+    <button id="btnVender">
+        Vender
+    </button>
+
+    <hr>
+
+    <button id="btnEstado">
+        Estado general
+    </button>
+
+    <hr>
+
+    <div id="output"></div>
+
+    <script type="module" src="./main.js"></script>
+
+</body>
+
+</html>
