@@ -1,10 +1,10 @@
 ---
-alumno: [AndresMartinez]
-sala: LAB-SALA-2
-curso: JS
+alumno: [Mathias Vargas-Cesar Quispe]
+sala: LAB-SALA-4
+curso: Fundmaneto JS
 dia: 0
-estado: completado
-loom: (No requerido)
+estado: en_progreso
+loom: (agregar link al terminar)
 ---
 ## Secciones
 - [x] A — Repositorio local y primeros commits
@@ -13,10 +13,8 @@ loom: (No requerido)
 - [x] D — git status y git log como hábito
 - [x] E — Evaluación entre pares
 - [x] F — Cierre del día
-
-
 ---
-alumno: [tunombre]
+alumno: [Mathias Vargas-Cesar Quispe]
 sala: I-SALA1
 curso: JS
 dia: 1
@@ -24,9 +22,9 @@ estado: en_progreso
 loom: (agregar link al terminar)
 ---
 ## Secciones
-- [ ] A — Variables
-- [ ] B — Funciones
-- [ ] C — Objeto plato del restaurante
-- [ ] D — Exploración con IA
-- [ ] E — Evaluación entre pares
-- [ ] F — Cierre del día
+- [x] A — Variables
+- [x] B — Funciones
+- [x] C — Objeto plato del restaurante
+- [x] D — Exploración con IA
+- [x] E — Evaluación entre pares
+- [x] F — Cierre del día
