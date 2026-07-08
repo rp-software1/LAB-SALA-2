@@ -55,6 +55,7 @@ export function calcularEstadoPlato(plato) {
 
     if (plato.stock === 0) return "agotado";
     if (plato.stock <= 3) return "bajo";
+
     return "normal";
 
 }
@@ -101,6 +102,7 @@ export function venderPlato(nombre, cantidad) {
         ok: true,
         mensaje: `Venta realizada: ${plato.nombre} x${cantidad}`
     };
+
 }
 
 // ========================================
@@ -122,8 +124,58 @@ export function verificarEstadoGeneral() {
 
     }
 
-    if (agotados > 0) return "Hay platos agotados";
-    if (bajos > 0) return "Hay platos con stock bajo";
+    if (agotados > 0) {
+        return "Hay platos agotados";
+    }
+
+    if (bajos > 0) {
+        return "Hay platos con stock bajo";
+    }
 
     return "Todo disponible";
+
+}
+
+// ========================================
+// PARTE A
+// SIMULAR RESPUESTA DEL SERVIDOR
+// ========================================
+
+export function simularRespuestaServidor(resultado) {
+
+    return new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+
+            const falla = Math.random() < 0.3;
+
+            if (falla) {
+                reject(new Error("Error del servidor simulado."));
+            } else {
+                resolve(resultado);
+            }
+
+        }, 2000);
+
+    });
+
+}
+
+// ========================================
+// PARTE B
+// VENDER PLATO ASYNC
+// ========================================
+
+export async function venderPlatoAsync(nombre, cantidad) {
+
+    const resultado = venderPlato(nombre, cantidad);
+
+    if (!resultado.ok) {
+        throw new Error(resultado.mensaje);
+    }
+
+    const respuesta = await simularRespuestaServidor(resultado.mensaje);
+
+    return respuesta;
+
 }
