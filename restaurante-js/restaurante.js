@@ -51,3 +51,5 @@ console.log(plato1.stock);            // 4
 
 // commit B1
 
+// commit B3
+
