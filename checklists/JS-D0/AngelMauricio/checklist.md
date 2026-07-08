@@ -21,7 +21,7 @@ alumno: [AngelMauricio]
 sala: I-SALA1
 curso: JS
 dia: 1
-estado: en_progreso
+estado: progresado
 loom: (agregar link al terminar)
 ---
 ## Secciones
@@ -30,4 +30,4 @@ loom: (agregar link al terminar)
 - [x] C — Objeto plato del restaurante
 - [x] D — Exploración con IA
 - [x] E — Evaluación entre pares
-- [ ] F — Cierre del día
+- [x] F — Cierre del día
