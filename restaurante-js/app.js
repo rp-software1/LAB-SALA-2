@@ -129,7 +129,6 @@ document.getElementById("btnResumen").addEventListener("click", obtenerResumenMe
 // Botón nuevo para verificar estado general (agregado)
 // Nota: Asegúrate de tener un botón con id="btnVerificar" en tu HTML
 // document.getElementById("btnVerificar").addEventListener("click", verificarEstadoGeneral);
-// Cambio para el commit.
 
 document.getElementById("btnVender").addEventListener("click", () => {
     const nombre = document.getElementById("inputVentaNombre").value;
