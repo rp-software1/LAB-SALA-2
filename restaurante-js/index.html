@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -6,9 +6,17 @@
     <title>Gestión de Restaurante - Charito</title>
     <style>
         /* Clases para los estados de stock */
-        .normal { color: black; }
-        .bajo { color: orange; font-weight: bold; }
-        .agotado { color: red; font-weight: bold; }
+        .normal { 
+            color: black; 
+        }
+        .bajo { 
+            color: orange; 
+            font-weight: bold; 
+        }
+        .agotado { 
+            color: red; 
+            font-weight: bold; 
+        }
     </style>
 </head>
 <body>
@@ -22,7 +30,7 @@
         <button id="btnAgregar">Agregar plato demo</button>
     </section>
 
-    <hr>
+    <hr />
 
     <section id="herramientas">
         <h2>Herramientas</h2>
@@ -47,6 +55,6 @@
 
     <main id="output" style="margin-top: 20px;"></main>
 
-    <script src="./app.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>
