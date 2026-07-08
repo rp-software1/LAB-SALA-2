@@ -2,11 +2,16 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Restaurante El Sabor Peruano</title>
 
     <style>
+
+        /* Estados del menú */
+
         .normal {
             color: black;
         }
@@ -20,67 +25,127 @@
             color: red;
             font-weight: bold;
         }
+
+
+        /* Estados de venta */
+
+        .procesando {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .exito {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
     </style>
 
 </head>
+
 
 <body>
 
     <h1>Restaurante El Sabor Peruano</h1>
 
-    <button id="btnMostrar">Mostrar menú</button>
-    <button id="btnAgregar">Agregar plato demo</button>
+
+    <!-- Mostrar y agregar -->
+
+    <button id="btnMostrar">
+        Mostrar menú
+    </button>
+
+    <button id="btnAgregar">
+        Agregar plato demo
+    </button>
+
 
     <hr>
 
+
+    <!-- Buscar -->
+
     <h2>Buscar plato</h2>
+
 
     <input
         type="text"
         id="inputBuscar"
         placeholder="Nombre del plato">
 
-    <button id="btnBuscar">Buscar</button>
+
+    <button id="btnBuscar">
+        Buscar
+    </button>
+
 
     <hr>
+
+
+    <!-- Herramientas -->
 
     <button id="btnStockBajo">
         Ver stock bajo
     </button>
 
+
     <button id="btnResumen">
         Ver resumen
     </button>
 
+
     <hr>
 
+
+    <!-- Venta -->
+
     <h2>Vender plato</h2>
+
 
     <input
         type="text"
         id="inputVentaNombre"
         placeholder="Nombre del plato">
 
+
     <input
         type="number"
         id="inputVentaCantidad"
         placeholder="Cantidad">
 
+
     <button id="btnVender">
         Vender
     </button>
 
+
     <hr>
+
+
+    <!-- Estado -->
 
     <button id="btnEstado">
         Estado general
     </button>
 
+
     <hr>
+
+
+    <!-- Zona donde aparece la información -->
 
     <div id="output"></div>
 
+
+    <!-- Entrada principal del proyecto -->
+
     <script type="module" src="./main.js"></script>
+
 
 </body>
 
