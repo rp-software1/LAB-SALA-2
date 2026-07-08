@@ -31,3 +31,23 @@ loom: (agregar link al terminar)
 - [x] D — Exploración con IA
 - [x] E — Evaluación entre pares
 - [x] F — Cierre del día
+
+
+| alumno | AngelMauricio |
+| :--- | :--- |
+| **sala** | LAB-SALA-2 |
+| **curso** | JS |
+| **dia** | 1 |
+| **estado** | completado |
+| **loom** | (No requerido) |
+
+## Checklist evaluación
+
+- [x] Uso correcto de async.
+- [x] Uso correcto de await.
+- [x] Uso correcto de try/catch.
+- [x] Manejo de estado procesando.
+- [x] Error controlado sin romper app.
+- [x] Modularización intacta.
+- [ ] 6 commits mínimos.
+- [ ] Issue y PR correctos.
