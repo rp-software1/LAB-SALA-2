@@ -45,3 +45,5 @@ console.log(estaDisponible(plato3));  // true
 vender(plato1);
 console.log(plato1.stock);            // 4
 
+// commit 2.
+
