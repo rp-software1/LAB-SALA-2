@@ -1,52 +1,85 @@
+// ========================================
+// OPERACIONES.JS
+// Lógica de negocio del restaurante
+// ========================================
+
 import { menu } from "./menu.js";
 
-export function buscarPlatoPorNombre(nombre) {
- return menu.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
+// ========================================
+// 1. CONSULTAS Y BÚSQUEDAS
+// ========================================
+
+export function contarPlatos() {
+    return menu.length;
 }
 
-export function filtrarStockBajo(limite = 3) {
- return menu.filter(p => p.stock <= limite);
+export function buscarPlatoPorNombre(nombre) {
+    return menu.find(plato => 
+        plato.nombre.toLowerCase() === nombre.toLowerCase()
+    );
+}
+
+export function filtrarStockBajo() {
+    return menu.filter(plato => plato.stock < 5);
 }
 
 export function obtenerResumenMenu() {
- return menu.map(p => `${p.nombre} — S/ ${p.precio}`);
+    return menu.map(plato => `${plato.nombre}: S/ ${plato.precio}`);
 }
 
-export function venderPlato(nombre, cantidad) {
- const plato = buscarPlatoPorNombre(nombre);
- if (!plato) {
-   return { ok: false, mensaje: "Plato no encontrado" };
- }
- if (plato.stock === 0) {
-   return { ok: false, mensaje: "No disponible (agotado)" };
- }
- if (cantidad <= 0) {
-   return { ok: false, mensaje: "Cantidad inválida" };
- }
- if (plato.stock < cantidad) {
-   return { ok: false, mensaje: "Stock insuficiente" };
- }
 
- plato.stock -= cantidad;
- return { ok: true, mensaje: `Venta realizada: ${plato.nombre} x${cantidad}` };
+export class ErrorNegocio extends Error {
+ constructor(mensaje) {
+   super(mensaje);
+   this.name = "ErrorNegocio";
+ }
 }
+
+// ========================================
+// 2. ESTADOS Y VERIFICACIONES
+// ========================================
 
 export function calcularEstadoPlato(plato) {
- if (plato.stock === 0) return "agotado";
- if (plato.stock <= 3) return "bajo";
- return "normal";
+    if (plato.stock <= 0) return "agotado";
+    if (plato.stock < 5) return "bajo";
+    return "normal";
 }
 
 export function verificarEstadoGeneral() {
- let agotados = 0;
- let bajos = 0;
+    const hayStockBajo = menu.some(plato => plato.stock < 5);
+    return hayStockBajo ? "¡Atención: Hay platos con stock bajo!" : "Todo el inventario está bien.";
+}
 
- for (let i = 0; i < menu.length; i++) {
-   if (menu[i].stock === 0) agotados++;
-   else if (menu[i].stock <= 3) bajos++;
- }
+// ========================================
+// 3. OPERACIONES ASÍNCRONAS
+// ========================================
 
- if (agotados > 0) return "Hay platos agotados";
- if (bajos > 0) return "Hay platos con stock bajo";
- return "Todo disponible";
+export function simularRespuestaServidor(resultado) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const falla = Math.random() < 0.3;
+            if (falla) {
+                reject("Error del servidor simulado.");
+            } else {
+                resolve(resultado);
+            }
+        }, 2000);
+    });
+}
+
+export async function venderPlatoAsync(nombre, cantidad) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const plato = buscarPlatoPorNombre(nombre);
+            
+            if (!plato) {
+                reject(new Error("Error: El plato no existe en el menú."));
+            } else if (plato.stock < cantidad) {
+                reject(new Error("Error: No hay suficiente stock para esta venta."));
+            } else {
+                plato.stock -= cantidad;
+                resolve(`Venta exitosa: ${cantidad} x ${plato.nombre}. Stock restante: ${plato.stock}`);
+            }
+        }, 800);
+    });
 }

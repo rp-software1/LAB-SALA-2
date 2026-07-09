@@ -1,106 +1,161 @@
-import { menu } from "./menu.js";
+// ========================================
+// UI.JS
+// Pantalla + eventos + renderizado
+// ========================================
+
+import { menu, agregarPlato } from "./menu.js";
 import {
+    contarPlatos,
     buscarPlatoPorNombre,
     filtrarStockBajo,
     obtenerResumenMenu,
-    venderPlato,
+    venderPlatoAsync,
     calcularEstadoPlato,
     verificarEstadoGeneral
 } from "./operaciones.js";
 
+// ========================================
+// MOSTRAR MENÚ
+// ========================================
 export function renderMenu() {
     const output = document.getElementById("output");
-    let html = "<h3>Menú</h3><ul>";
+    let html = `
+        <h2>Menú del Restaurante</h2>
+        <ul>
+    `;
 
     for (let i = 0; i < menu.length; i++) {
         const plato = menu[i];
         const estado = calcularEstadoPlato(plato);
-        html += `<li class="${estado}">${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
+        let textoEstado = "";
+
+        if (estado === "normal") {
+            textoEstado = "Disponible";
+        } else if (estado === "bajo") {
+            textoEstado = "Stock bajo";
+        } else {
+            textoEstado = "AGOTADO";
+        }
+
+        html += `
+            <li class="${estado}">
+                <strong>${plato.nombre}</strong><br>
+                Precio: S/ ${plato.precio}<br>
+                Stock: ${plato.stock}<br>
+                Estado: ${textoEstado}
+            </li>
+            <br>
+        `;
     }
 
-    html += "</ul>";
-    html += `<p>${verificarEstadoGeneral()}</p>`;
+    html += `
+        </ul>
+        <hr>
+        <h3>Total de platos: ${contarPlatos()}</h3>
+        <p>${verificarEstadoGeneral()}</p>
+    `;
+
     output.innerHTML = html;
 }
 
+// ========================================
+// MOSTRAR LISTAS
+// ========================================
 export function renderLista(titulo, listaTextos) {
     const output = document.getElementById("output");
-    let html = `<h3>${titulo}</h3><ul>`;
-    
+    let html = `
+        <h2>${titulo}</h2>
+        <ul>
+    `;
+
     for (let i = 0; i < listaTextos.length; i++) {
-        html += `<li>${listaTextos[i]}</li>`;
+        html += `
+            <li>${listaTextos[i]}</li>
+        `;
     }
-    
-    html += "</ul>";
+    html += `</ul>`;
     output.innerHTML = html;
 }
 
-export function mostrarMensaje(texto) {
+// ========================================
+// MOSTRAR MENSAJES
+// ========================================
+export function mostrarMensaje(texto, clase = "") {
     const output = document.getElementById("output");
-    output.innerHTML = `<p>${texto}</p>`;
+    output.innerHTML = `
+        <h2 class="${clase}">${texto}</h2>
+    `;
 }
 
+// ========================================
+// CONECTAR BOTONES
+// ========================================
 export function conectarEventos() {
-    const btnMostrar = document.getElementById("btnMostrar");
-    const btnAgregar = document.getElementById("btnAgregar");
-    const btnBuscar = document.getElementById("btnBuscar");
-    const btnStockBajo = document.getElementById("btnStockBajo");
-    const btnResumen = document.getElementById("btnResumen");
-    
-    const inputBuscar = document.getElementById("inputBuscar");
-    const inputVentaNombre = document.getElementById("inputVentaNombre");
-    const inputVentaCantidad = document.getElementById("inputVentaCantidad");
-    const btnVender = document.getElementById("btnVender");
 
-    if (btnMostrar) {
-        btnMostrar.addEventListener("click", () => renderMenu());
-    }
+    // Mostrar menú
+    document.getElementById("btnMostrar").addEventListener("click", () => {
+        renderMenu();
+    });
 
-    if (btnAgregar) {
-        btnAgregar.addEventListener("click", () => {
-            mostrarMensaje("Agrega plato demo (si tienes agregarPlato, úsalo aquí) y luego renderiza.");
+    // Agregar plato demo
+    document.getElementById("btnAgregar").addEventListener("click", () => {
+        agregarPlato({
+            nombre: "Causa Rellena",
+            precio: 14,
+            stock: 12
         });
-    }
+        renderMenu();
+    });
 
-    if (btnBuscar) {
-        btnBuscar.addEventListener("click", () => {
-            const nombre = inputBuscar.value.trim();
-            if (!nombre) return mostrarMensaje("Escribe un nombre para buscar.");
+    // Buscar plato
+    document.getElementById("btnBuscar").addEventListener("click", () => {
+        const nombre = document.getElementById("inputBuscar").value.trim();
+        const plato = buscarPlatoPorNombre(nombre);
 
-            const plato = buscarPlatoPorNombre(nombre);
-            if (!plato) return mostrarMensaje("No encontrado.");
+        if (!plato) {
+            mostrarMensaje("Plato no encontrado", "error");
+            return;
+        }
 
-            renderLista("Resultado búsqueda", [`${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}`]);
-        });
-    }
+        renderLista("Resultado de búsqueda", [
+            `${plato.nombre} - S/ ${plato.precio} - Stock: ${plato.stock}`
+        ]);
+    });
 
-    if (btnStockBajo) {
-        btnStockBajo.addEventListener("click", () => {
-            const lista = filtrarStockBajo(3).map(p => `${p.nombre} — Stock: ${p.stock}`);
-            renderLista("Stock bajo (<=3)", lista.length ? lista : ["Sin resultados"]);
-        });
-    }
+    // Stock bajo
+    document.getElementById("btnStockBajo").addEventListener("click", () => {
+        const lista = filtrarStockBajo().map(plato => 
+            `${plato.nombre} - Stock: ${plato.stock}`
+        );
 
-    if (btnResumen) {
-        btnResumen.addEventListener("click", () => {
-            const lista = obtenerResumenMenu();
-            renderLista("Resumen del menú", lista);
-        });
-    }
+        renderLista("Platos con stock bajo", 
+            lista.length ? lista : ["No hay platos con stock bajo"]
+        );
+    });
 
-    // Lógica añadida para la sección "Vender Plato"
-    if (btnVender) {
-        btnVender.addEventListener("click", () => {
-            const nombre = inputVentaNombre.value.trim();
-            const cantidad = parseInt(inputVentaCantidad.value);
+    // Resumen
+    document.getElementById("btnResumen").addEventListener("click", () => {
+        const lista = obtenerResumenMenu();
+        renderLista("Resumen del menú", lista);
+    });
 
-            if (!nombre || isNaN(cantidad) || cantidad <= 0) {
-                return mostrarMensaje("Por favor, ingresa un nombre y una cantidad válida.");
-            }
+    // Vender con async / await
+    document.getElementById("btnVender").addEventListener("click", async () => {
+        const nombre = document.getElementById("inputVentaNombre").value.trim();
+        const cantidad = Number(document.getElementById("inputVentaCantidad").value);
 
-            // Ejecuta la función lógica que importaste
-            const mensajeResultado = venderPlato(nombre, cantidad);
-            mostrarMensaje(mensajeResultado);
-        });
-    }
+        try {
+            mostrarMensaje("Procesando pedido...", "procesando");
+            const mensaje = await venderPlatoAsync(nombre, cantidad);
+            mostrarMensaje(mensaje, "exito");
+            renderMenu();
+        } catch(error) {
+            mostrarMensaje(error.message, "error");
+        }
+    });
+
+    // Estado general
+    document.getElementById("btnEstado").addEventListener("click", () => {
+        mostrarMensaje(verificarEstadoGeneral());
+    });
 }

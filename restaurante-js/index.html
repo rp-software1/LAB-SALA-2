@@ -1,60 +1,118 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Gestión de Restaurante - Charito</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurante El Sabor Peruano</title>
+
     <style>
-        /* Clases para los estados de stock */
-        .normal { 
-            color: black; 
+
+        /* Estados del menú */
+
+        .normal {
+            color: black;
         }
-        .bajo { 
-            color: orange; 
-            font-weight: bold; 
+
+        .bajo {
+            color: orange;
+            font-weight: bold;
         }
-        .agotado { 
-            color: red; 
-            font-weight: bold; 
+
+        .agotado {
+            color: red;
+            font-weight: bold;
+        }
+
+
+        /* Estados de venta */
+
+        .procesando {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .exito {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+    <h1>Restaurante El Sabor Peruano</h1>
+    <!-- Mostrar y agregar -->
+    <button id="btnMostrar">
+        Mostrar menú
+    </button>
+    <button id="btnAgregar">
+        Agregar plato demo
+    </button>
+    <hr>
+    <!-- Buscar -->
+    <h2>Buscar plato</h2>
+    <input
+        type="text"
+        id="inputBuscar"
+        placeholder="Nombre del plato">
+    <button id="btnBuscar">
+        Buscar
+    </button>
+    <hr>
+    <!-- Herramientas -->
+    <button id="btnStockBajo">
+        Ver stock bajo
+    </button>
+    <button id="btnResumen">
+        Ver resumen
+    </button>
+    <hr>
+    <!-- Venta -->
+    <h2>Vender plato</h2>
+    <input
+        type="text"
+        id="inputVentaNombre"
+        placeholder="Nombre del plato">
+    <input
+        type="number"
+        id="inputVentaCantidad"
+        placeholder="Cantidad">
 
-    <header>
-        <h1>Menú del Restaurante</h1>
-    </header>
 
-    <section id="acciones-principales">
-        <button id="btnMostrar">Mostrar menú</button>
-        <button id="btnAgregar">Agregar plato demo</button>
-    </section>
+    <button id="btnVender">
+        Vender
+    </button>
 
-    <hr />
 
-    <section id="herramientas">
-        <h2>Herramientas</h2>
-        
-        <div>
-            <input type="text" id="inputBuscar" placeholder="Buscar plato por nombre" />
-            <button id="btnBuscar">Buscar</button>
-        </div>
+    <hr>
 
-        <div style="margin-top: 10px;">
-            <button id="btnStockBajo">Ver stock bajo (<= 3)</button>
-            <button id="btnResumen">Ver resumen</button>
-        </div>
 
-        <div style="margin-top: 15px; padding: 10px; border: 1px solid #ccc; width: fit-content;">
-            <h3>Vender Plato</h3>
-            <input id="inputVentaNombre" placeholder="Nombre del plato" />
-            <input id="inputVentaCantidad" type="number" placeholder="Cantidad" />
-            <button id="btnVender">Vender</button>
-        </div>
-    </section>
+    <!-- Estado -->
 
-    <main id="output" style="margin-top: 20px;"></main>
+    <button id="btnEstado">
+        Estado general
+    </button>
+
+
+    <hr>
+
+
+    <!-- Zona donde aparece la información -->
+
+    <div id="output"></div>
+
+
+    <!-- Entrada principal del proyecto -->
 
     <script type="module" src="./main.js"></script>
+
+
 </body>
-</html>
+
+</html
