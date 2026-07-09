@@ -3,7 +3,6 @@
 // Pantalla + eventos + renderizado
 // ========================================
 
-
 import { menu, agregarPlato } from "./menu.js";
 
 
@@ -36,13 +35,12 @@ export function renderMenu() {
 
     for (let i = 0; i < menu.length; i++) {
 
-
         const plato = menu[i];
 
         const estado = calcularEstadoPlato(plato);
 
 
-        let textoEstado = "";
+        let textoEstado;
 
 
         if (estado === "normal") {
@@ -82,22 +80,23 @@ export function renderMenu() {
     }
 
 
+
     html += `
 
         </ul>
 
         <hr>
 
-        <h3>
-            Total de platos: ${contarPlatos()}
-        </h3>
-
-
         <p>
             ${verificarEstadoGeneral()}
         </p>
 
+        <h3>
+            Total de platos: ${contarPlatos()}
+        </h3>
+
     `;
+
 
 
     output.innerHTML = html;
@@ -140,7 +139,9 @@ export function renderLista(titulo, listaTextos) {
     }
 
 
-    html += `</ul>`;
+
+    html += "</ul>";
+
 
 
     output.innerHTML = html;
@@ -150,7 +151,7 @@ export function renderLista(titulo, listaTextos) {
 
 
 // ========================================
-// MOSTRAR MENSAJES CON ESTADOS
+// MOSTRAR MENSAJES
 // ========================================
 
 export function mostrarMensaje(texto, clase = "") {
@@ -172,7 +173,7 @@ export function mostrarMensaje(texto, clase = "") {
 
 
 // ========================================
-// CONECTAR BOTONES
+// EVENTOS
 // ========================================
 
 export function conectarEventos() {
@@ -193,7 +194,7 @@ export function conectarEventos() {
 
 
 
-    // Agregar plato demo
+    // Agregar plato
 
     document
     .getElementById("btnAgregar")
@@ -220,6 +221,7 @@ export function conectarEventos() {
 
 
 
+
     // Buscar plato
 
     document
@@ -227,14 +229,16 @@ export function conectarEventos() {
     .addEventListener("click", () => {
 
 
-        const nombre = document
+        const nombre =
+        document
         .getElementById("inputBuscar")
         .value
         .trim();
 
 
 
-        const plato = buscarPlatoPorNombre(nombre);
+        const plato =
+        buscarPlatoPorNombre(nombre);
 
 
 
@@ -255,7 +259,7 @@ export function conectarEventos() {
 
 
         renderLista(
-            "Resultado de búsqueda",
+            "Resultado búsqueda",
             [
 
                 `${plato.nombre} - S/ ${plato.precio} - Stock: ${plato.stock}`
@@ -271,6 +275,7 @@ export function conectarEventos() {
 
 
 
+
     // Stock bajo
 
     document
@@ -278,7 +283,8 @@ export function conectarEventos() {
     .addEventListener("click", () => {
 
 
-        const lista = filtrarStockBajo()
+        const lista =
+        filtrarStockBajo()
         .map(plato =>
 
             `${plato.nombre} - Stock: ${plato.stock}`
@@ -289,7 +295,7 @@ export function conectarEventos() {
 
         renderLista(
 
-            "Platos con stock bajo",
+            "Stock bajo",
 
             lista.length
             ? lista
@@ -305,6 +311,8 @@ export function conectarEventos() {
 
 
 
+
+
     // Resumen
 
     document
@@ -312,12 +320,12 @@ export function conectarEventos() {
     .addEventListener("click", () => {
 
 
-        const lista = obtenerResumenMenu();
-
-
         renderLista(
+
             "Resumen del menú",
-            lista
+
+            obtenerResumenMenu()
+
         );
 
 
@@ -329,10 +337,10 @@ export function conectarEventos() {
 
 
 
-    // ========================================
-    // VENDER CON ASYNC / AWAIT
-    // ========================================
 
+    // ========================================
+    // VENDER PLATO ASYNC
+    // ========================================
 
     document
     .getElementById("btnVender")
@@ -340,24 +348,26 @@ export function conectarEventos() {
 
 
 
-        const nombre = document
+        const nombre =
+        document
         .getElementById("inputVentaNombre")
         .value
         .trim();
 
 
 
-        const cantidad = Number(
-
+        const cantidad =
+        Number(
             document
             .getElementById("inputVentaCantidad")
             .value
-
         );
 
 
 
+
         try {
+
 
 
             mostrarMensaje(
@@ -367,10 +377,13 @@ export function conectarEventos() {
 
 
 
-            const mensaje = await venderPlatoAsync(
+
+            const mensaje =
+            await venderPlatoAsync(
                 nombre,
                 cantidad
             );
+
 
 
 
@@ -385,14 +398,38 @@ export function conectarEventos() {
 
 
 
+
+
         } catch(error) {
 
 
 
-            mostrarMensaje(
-                error.message,
-                "error"
-            );
+            if (error.name === "ErrorNegocio") {
+
+
+                mostrarMensaje(
+
+                    "Advertencia: " + error.message,
+
+                    "error"
+
+                );
+
+
+            } else {
+
+
+
+                mostrarMensaje(
+
+                    "Error del sistema: " + error.message,
+
+                    "error"
+
+                );
+
+
+            }
 
 
         }
@@ -400,6 +437,7 @@ export function conectarEventos() {
 
 
     });
+
 
 
 
