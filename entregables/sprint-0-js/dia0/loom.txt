@@ -1,1 +1,3 @@
 git log --oneline
+aqui le entrego el link del video del trabajo final 
+ https://www.loom.com/looms/videos 
