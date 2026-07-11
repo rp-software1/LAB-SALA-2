@@ -128,3 +128,22 @@ loom: (No requerido)
 - [x] Modularización intacta
 - [x] 6 commits mínimos
 - [x] Issue y Pull Request correctos
+
+---
+alumno: MathiasAlexander
+sala: LAB-SALA-2
+curso: JS
+dia: 8
+estado: completado
+loom: (No requerido)
+---
+
+## Secciones
+- [x] Uso correcto de throw
+- [x] Uso correcto de try/catch
+- [x] Error personalizado implementado
+- [x] Diferenciación entre errores de negocio y de sistema
+- [x] Estado consistente
+- [x] Validaciones completas
+- [x] Modularización intacta
+- [x] 6 commits mínimo
