@@ -2,9 +2,11 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Restaurante - DOM</title>
+
 </head>
 
 <body>
@@ -52,8 +54,6 @@
 
         ];
 
-
-
         function renderCarta(platos) {
 
             const carta = document.getElementById("carta");
@@ -64,26 +64,27 @@
 
                 html += `
 
-                    <div>
+                <div>
 
-                        <h2>${plato.nombre}</h2>
+                    <h2>${plato.nombre}</h2>
 
-                        <p>Categoría: ${plato.categoria}</p>
+                    <p>Categoría: ${plato.categoria}</p>
 
-                        <p>Precio: S/ ${plato.precio}</p>
+                    <p>Precio: S/ ${plato.precio}</p>
 
-                        <p>Stock: ${plato.stock}</p>
+                    <p>Stock: ${plato.stock}</p>
 
-                        <p>
+                    <p>
 
-                            Estado:
-                            ${plato.disponible ? "Disponible" : "No disponible"}
+                        ${plato.disponible
+                        ? "✅ Disponible"
+                        : "❌ No disponible"}
 
-                        </p>
+                    </p>
 
-                    </div>
+                </div>
 
-                    <hr>
+                <hr>
 
                 `;
 
@@ -93,11 +94,7 @@
 
         }
 
-
-
         renderCarta(platos);
-
-
 
         document
             .getElementById("btnAgregar")
@@ -107,13 +104,13 @@
 
                     id: 4,
 
-                    nombre: "Ceviche",
+                    nombre: "Pollo a la brasa",
 
-                    categoria: "Marinos",
+                    categoria: "Segundos",
 
-                    precio: 25,
+                    precio: 20,
 
-                    stock: 6,
+                    stock: 4,
 
                     disponible: true
 

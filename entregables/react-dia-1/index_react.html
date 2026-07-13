@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <title>Restaurante React</title>
+    <title>React CDN</title>
 
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 
@@ -16,8 +16,6 @@
 </head>
 
 <body>
-
-    <h1>Restaurante El Sabor Peruano</h1>
 
     <div id="root"></div>
 
@@ -54,45 +52,35 @@
 
         ];
 
-
-
-        function Carta({ platos }) {
+        function PlatoCard({ plato }) {
 
             return (
 
                 <div>
 
-                    {
+                    <h2>{plato.nombre}</h2>
 
-                        platos.map(plato => (
+                    <p>Categoría: {plato.categoria}</p>
 
-                            <div key={plato.id}>
+                    <p>Precio: S/ {plato.precio}</p>
 
-                                <h2>{plato.nombre}</h2>
+                    <p>Stock: {plato.stock}</p>
 
-                                <p>Categoría: {plato.categoria}</p>
+                    <p>
 
-                                <p>Precio: S/ {plato.precio}</p>
+                        {
 
-                                <p>Stock: {plato.stock}</p>
+                            plato.disponible
 
-                                <p>
+                                ? "✅ Disponible"
 
-                                    Estado:
+                                : "❌ No disponible"
 
-                                    {plato.disponible
-                                        ? " Disponible"
-                                        : " No disponible"}
+                        }
 
-                                </p>
+                    </p>
 
-                                <hr />
-
-                            </div>
-
-                        ))
-
-                    }
+                    <hr />
 
                 </div>
 
@@ -100,19 +88,37 @@
 
         }
 
+        function App() {
 
+            return (
 
-        const root = ReactDOM.createRoot(
-            document.getElementById("root")
-        );
+                <>
 
+                    {
 
+                        platos.map(plato => (
 
-        root.render(
+                            <PlatoCard
 
-            <Carta platos={platos} />
+                                key={plato.id}
 
-        );
+                                plato={plato}
+
+                            />
+
+                        ))
+
+                    }
+
+                </>
+
+            );
+
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+
+        root.render(<App />);
 
     </script>
 
