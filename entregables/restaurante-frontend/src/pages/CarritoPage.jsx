@@ -2,16 +2,12 @@ import { useState, useEffect } from "react";
 import { platosMock } from "../data/platos.mock";
 
 export default function CarritoPage() {
-  // Estado del menú
+  // Estados
   const [platos, setPlatos] = useState([]);
-
-  // Estado del carrito
   const [carrito, setCarrito] = useState([]);
-
-  // Estado de carga
   const [loading, setLoading] = useState(true);
 
-  // Cargar el menú al montar el componente
+  // Cargar menú
   useEffect(() => {
     setTimeout(() => {
       setPlatos(platosMock);
@@ -19,17 +15,40 @@ export default function CarritoPage() {
     }, 800);
   }, []);
 
-  // Agregar un plato al carrito
+  // Agregar plato
   function agregarPlato(plato) {
-    setCarrito([...carrito, plato]);
+    const existe = carrito.find(item => item._id === plato._id);
+
+    if (existe) {
+      setCarrito(
+        carrito.map(item =>
+          item._id === plato._id
+            ? { ...item, cantidad: item.cantidad + 1 }
+            : item
+        )
+      );
+    } else {
+      setCarrito([
+        ...carrito,
+        {
+          ...plato,
+          cantidad: 1,
+        },
+      ]);
+    }
   }
 
-  // Quitar un plato del carrito
+  // Quitar plato
   function quitarPlato(id) {
     setCarrito(carrito.filter(item => item._id !== id));
   }
 
-  // Mostrar mensaje mientras carga
+  // Total
+  const total = carrito.reduce(
+    (sum, item) => sum + item.precio * item.cantidad,
+    0
+  );
+
   if (loading) {
     return <p>Cargando menú...</p>;
   }
@@ -43,7 +62,7 @@ export default function CarritoPage() {
       {platos.map(plato => (
         <div key={plato._id}>
           <span>
-            {plato.nombre} — S/ {plato.precio}
+            {plato.nombre} - S/ {plato.precio}
           </span>
 
           <button onClick={() => agregarPlato(plato)}>
@@ -54,14 +73,17 @@ export default function CarritoPage() {
 
       <hr />
 
-      <h3>Comanda ({carrito.length} ítems)</h3>
+      <h3>Comanda</h3>
 
       {carrito.length === 0 ? (
         <p>No hay platos en la comanda.</p>
       ) : (
-        carrito.map((item, index) => (
-          <div key={index}>
-            <span>{item.nombre}</span>
+        carrito.map(item => (
+          <div key={item._id}>
+            <span>
+              {item.nombre} | Cantidad: {item.cantidad} | Subtotal: S/{" "}
+              {item.precio * item.cantidad}
+            </span>
 
             <button onClick={() => quitarPlato(item._id)}>
               Quitar
@@ -69,7 +91,14 @@ export default function CarritoPage() {
           </div>
         ))
       )}
-    </div>
-  );
-}
 
+      <hr />
+
+      <h3>Total: S/ {total}</h3>
+
+      <button onClick={() => setCarrito([])}>
+        Limpiar comanda
+      </button>
+    </div>
+  );git
+}

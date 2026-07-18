@@ -1,18 +1,23 @@
-// App.jsx (Ejemplo de montaje directo para pruebas)
-import NavBar from "./components/NavBar";
-import Home from "./pages/Home";
-import MesasPage from "./pages/MesasPage";
-import React from "react";
-import ComandasPage from "./pages/ComandasPage";
-// ... otros imports
+import { useState } from 'react';
+import NavBar from './components/NavBar';
+import Home from './pages/Home';
+import MenuPage from './pages/MenuPage';
+import MesasPage from './pages/MesasPage';
+import CarritoPage from './pages/CarritoPage';
 
-function App() {
+export default function App() {
+  const [pagina, setPagina] = useState('home');
+
   return (
-    <div className="App">
-      {/* Tu Navbar u otros componentes */}
-      <ComandasPage />
-    </div>
+    <>
+      <NavBar cambiarPagina={setPagina} />
+
+      <main style={{ padding: '30px' }}>
+        {pagina === 'home' && <Home />}
+        {pagina === 'menu' && <MenuPage />}
+        {pagina === 'mesas' && <MesasPage />}
+        {pagina === 'carrito' && <CarritoPage />}
+      </main>
+    </>
   );
 }
-
-export default App;
