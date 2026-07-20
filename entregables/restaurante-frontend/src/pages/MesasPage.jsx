@@ -1,3 +1,4 @@
+import MesaCard from "../components/MesaCard";
 import { mesasMock } from "../data/mesas.mock";
 
 export default function MesasPage() {
@@ -6,12 +7,13 @@ export default function MesasPage() {
       <h2>Mesas del Restaurante</h2>
 
       {mesasMock.map((mesa) => (
-        <div
+        <MesaCard
           key={mesa.id}
-          className={`mesa ${mesa.estado}`}
-        >
-          Mesa {mesa.numero}
-        </div>
+          numero={mesa.numero}
+          capacidad={mesa.capacidad}
+          comensales={mesa.comensales}
+          estado={mesa.estado}
+        />
       ))}
     </section>
   );
