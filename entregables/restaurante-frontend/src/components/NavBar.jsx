@@ -1,24 +1,31 @@
 export default function NavBar({ cambiarPagina }) {
   const estilos = {
     header: {
-      backgroundColor: '#222',
-      color: 'white',
-      padding: '20px',
-      textAlign: 'center',
+      backgroundColor: "#222",
+      color: "white",
+      padding: "20px",
+      textAlign: "center",
     },
     nav: {
-      backgroundColor: '#333',
-      padding: '10px',
-      textAlign: 'center',
+      backgroundColor: "#333",
+      padding: "10px",
+      textAlign: "center",
     },
     button: {
-      margin: '0 10px',
-      padding: '10px 20px',
-      border: 'none',
-      borderRadius: '6px',
-      cursor: 'pointer',
+      margin: "0 10px",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "6px",
+      cursor: "pointer",
     },
   };
+
+  const paginas = [
+    { nombre: "Inicio", ruta: "home" },
+    { nombre: "Carta", ruta: "menu" },
+    { nombre: "Mesas", ruta: "mesas" },
+    { nombre: "Comandas", ruta: "carrito" },
+  ];
 
   return (
     <>
@@ -27,18 +34,15 @@ export default function NavBar({ cambiarPagina }) {
       </header>
 
       <nav style={estilos.nav}>
-        <button style={estilos.button} onClick={() => cambiarPagina('home')}>
-          Inicio
-        </button>
-        <button style={estilos.button} onClick={() => cambiarPagina('menu')}>
-          Carta
-        </button>
-        <button style={estilos.button} onClick={() => cambiarPagina('mesas')}>
-          Mesas
-        </button>
-        <button style={estilos.button} onClick={() => cambiarPagina('carrito')}>
-          Comandas
-        </button>
+        {paginas.map((pagina) => (
+          <button
+            key={pagina.ruta}
+            style={estilos.button}
+            onClick={() => cambiarPagina(pagina.ruta)}
+          >
+            {pagina.nombre}
+          </button>
+        ))}
       </nav>
     </>
   );
