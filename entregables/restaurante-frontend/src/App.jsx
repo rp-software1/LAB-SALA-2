@@ -1,37 +1,50 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import NavBar from "./components/NavBar";
+
 import Home from "./pages/Home";
 import MenuPage from "./pages/MenuPage";
 import MesasPage from "./pages/MesasPage";
+import DetalleMesa from "./pages/DetalleMesa";
 import CarritoPage from "./pages/CarritoPage";
-import { getPlatos } from "./services/api";
+import ComandasPage from "./pages/ComandasPage";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
-  const [pagina, setPagina] = useState("home");
-
-  useEffect(() => {
-    async function probarAPI() {
-      try {
-        const platos = await getPlatos();
-        console.log("Platos cargados:", platos);
-      } catch (error) {
-        console.error("Error al cargar la API:", error);
-      }
-    }
-
-    probarAPI();
-  }, []);
-
   return (
-    <>
-      <NavBar cambiarPagina={setPagina} />
+    <BrowserRouter>
+      <NavBar nombreRestaurante="🍽 Restaurante SENATI" />
 
-      <main style={{ padding: "30px" }}>
-        {pagina === "home" && <Home />}
-        {pagina === "menu" && <MenuPage />}
-        {pagina === "mesas" && <MesasPage />}
-        {pagina === "carrito" && <CarritoPage />}
+      <main
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "30px",
+        }}
+      >
+        <Routes>
+          {/* Página principal */}
+          <Route path="/" element={<Home />} />
+
+          {/* Carta */}
+          <Route path="/menu" element={<MenuPage />} />
+
+          {/* Mesas */}
+          <Route path="/mesas" element={<MesasPage />} />
+
+          {/* Detalle de una mesa */}
+          <Route path="/mesas/:id" element={<DetalleMesa />} />
+
+          {/* Carrito */}
+          <Route path="/carrito" element={<CarritoPage />} />
+
+          {/* Comandas */}
+          <Route path="/comandas" element={<ComandasPage />} />
+
+          {/* Página no encontrada */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
-    </>
+    </BrowserRouter>
   );
 }

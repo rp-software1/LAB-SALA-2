@@ -1,26 +1,22 @@
-import { useEffect, useState } from "react";
+// src/pages/CarritoPage.jsx
+
+import { useState, useEffect } from "react";
 import { getPlatos } from "../services/api";
 
 export default function CarritoPage() {
-  // Estado del menú
   const [platos, setPlatos] = useState([]);
-
-  // Estado del carrito
   const [carrito, setCarrito] = useState([]);
-
-  // Estados de carga
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Cargar platos desde la API
   useEffect(() => {
     async function cargarPlatos() {
       try {
         const datos = await getPlatos();
         setPlatos(datos);
       } catch (err) {
-        setError("No se pudo cargar el menú.");
         console.error(err);
+        setError("No se pudo cargar el menú.");
       } finally {
         setLoading(false);
       }
@@ -29,7 +25,6 @@ export default function CarritoPage() {
     cargarPlatos();
   }, []);
 
-  // Agregar plato al carrito
   function agregarPlato(plato) {
     const existe = carrito.find((item) => item._id === plato._id);
 
@@ -42,51 +37,52 @@ export default function CarritoPage() {
         )
       );
     } else {
-      setCarrito([
-        ...carrito,
-        {
-          ...plato,
-          cantidad: 1,
-        },
-      ]);
+      setCarrito([...carrito, { ...plato, cantidad: 1 }]);
     }
   }
 
-  // Quitar plato
   function quitarPlato(id) {
     setCarrito(carrito.filter((item) => item._id !== id));
   }
 
-  // Calcular total
   const total = carrito.reduce(
     (sum, item) => sum + item.precio * item.cantidad,
     0
   );
 
-  // Loading
-  if (loading) {
-    return <p>Cargando menú...</p>;
-  }
+  if (loading) return <h2>Cargando menú...</h2>;
 
-  // Error
-  if (error) {
-    return <p>{error}</p>;
-  }
+  if (error) return <h2>{error}</h2>;
 
   return (
-    <section>
-      <h2>Armar Comanda</h2>
+    <div>
+      <h1>🛒 Carrito de Compras</h1>
+      <p>Selecciona los platos que deseas pedir.</p>
 
-      <h3>Menú</h3>
+      <hr />
+
+      <h2>Menú</h2>
 
       {platos.map((plato) => (
-        <div key={plato._id} style={{ marginBottom: "10px" }}>
-          <strong>{plato.nombre}</strong> - S/ {plato.precio}
+        <div
+          key={plato._id}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            border: "1px solid #ddd",
+            padding: "10px",
+            marginBottom: "10px",
+            borderRadius: "8px",
+          }}
+        >
+          <div>
+            <strong>{plato.nombre}</strong>
+            <br />
+            S/ {plato.precio}
+          </div>
 
-          <button
-            style={{ marginLeft: "10px" }}
-            onClick={() => agregarPlato(plato)}
-          >
+          <button onClick={() => agregarPlato(plato)}>
             Agregar
           </button>
         </div>
@@ -94,19 +90,30 @@ export default function CarritoPage() {
 
       <hr />
 
-      <h3>Comanda ({carrito.length} platos)</h3>
+      <h2>Pedido</h2>
 
       {carrito.length === 0 ? (
-        <p>No hay platos en la comanda.</p>
+        <p>No hay productos agregados.</p>
       ) : (
         carrito.map((item) => (
-          <div key={item._id} style={{ marginBottom: "10px" }}>
-            <strong>{item.nombre}</strong> - Cantidad: {item.cantidad}
+          <div
+            key={item._id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <div>
+              <strong>{item.nombre}</strong>
 
-            <button
-              style={{ marginLeft: "10px" }}
-              onClick={() => quitarPlato(item._id)}
-            >
+              <br />
+
+              Cantidad: {item.cantidad}
+            </div>
+
+            <button onClick={() => quitarPlato(item._id)}>
               Quitar
             </button>
           </div>
@@ -115,11 +122,14 @@ export default function CarritoPage() {
 
       <hr />
 
-      <h3>Total: S/ {total}</h3>
+      <h2>Total: S/ {total.toFixed(2)}</h2>
 
-      <button onClick={() => setCarrito([])}>
-        Limpiar comanda
+      <button
+        onClick={() => setCarrito([])}
+        disabled={carrito.length === 0}
+      >
+        Vaciar carrito
       </button>
-    </section>
+    </div>
   );
 }
