@@ -1,10 +1,11 @@
-# Checklist del Proyecto - Sistema de Pedidos
-
-Estado: Completado
-Demostración: [Ver video en Loom](https://www.loom.com/share/TU_LINK_AQUI)
-
+--
+alumno: MathiasAlexander
+sala: LAB-SALA-2
+curso: React
+dia: 7
+estado: completado
+loom: (No requerido)
 ---
-
 ## Configuración e Integración
 
 - [x] Existe `src/context/PedidoContext.jsx` con `createContext`, `Provider` y `usePedido` custom hook.
