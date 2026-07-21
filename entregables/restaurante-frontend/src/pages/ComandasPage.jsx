@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import OrderForm from "../components/OrderForm";
 // Importamos el mock de mesas del proyecto
-import { mesas } from "../data/mesas.mock"; 
+import { mesasMock as mesas } from "../data/mesas.mock";
 
 function ComandasPage() {
   // Inicializamos el estado con el id o número de la primera mesa disponible
