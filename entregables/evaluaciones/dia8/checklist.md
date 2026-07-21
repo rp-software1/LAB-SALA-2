@@ -2,7 +2,7 @@
 alumno: MathiasAlexander
 sala: LAB-SALA-2
 curso: Reactgit
-dia: 7
+dia: 8
 estado: completado
 loom: (No requerido)
 ---
