@@ -1,7 +1,7 @@
---
+---
 alumno: MathiasAlexander
 sala: LAB-SALA-2
-curso: React
+curso: Reactgit
 dia: 7
 estado: completado
 loom: (No requerido)
