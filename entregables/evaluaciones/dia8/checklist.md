@@ -1,5 +1,5 @@
 ---
-alumno: MathiasAlexander
+alumno: MathiasAlexander y angelMauricio
 sala: LAB-SALA-2
 curso: Reactgit
 dia: 8
