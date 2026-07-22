@@ -1,5 +1,5 @@
 ---
-alumno: MathiasAlexander
+alumno: MathiasAlexander y Angel Mauricio
 sala: LAB-SALA-2
 curso: React
 dia: 5
