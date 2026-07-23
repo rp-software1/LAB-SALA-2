@@ -1,5 +1,13 @@
-import { Link } from "react-router-dom";
-import { mesasMock } from "../data/mesas.mock";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getMesas } from "../services/api";
+import { usePedido } from "../context/PedidoContext";
+
+const [mesas, setMesas] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+const { asignarMesa } = usePedido();
+const navigate = useNavigate();
 
 export default function MesasPage() {
   return (
