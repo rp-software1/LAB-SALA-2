@@ -1,135 +1,104 @@
 // src/pages/CarritoPage.jsx
-
-import { useState, useEffect } from "react";
-import { getPlatos } from "../services/api";
+import { useState } from "react";
+import { crearPedido } from "../services/api";
+import { usePedido } from "../context/PedidoContext";
 
 export default function CarritoPage() {
-  const [platos, setPlatos] = useState([]);
-  const [carrito, setCarrito] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { pedido, quitarPlato, cambiarTipo, limpiarPedido } = usePedido();
+  const [enviando, setEnviando] = useState(false);
+  const [error, setError] = useState(null);
+  const [pedidoCreado, setPedidoCreado] = useState(null);
 
-  useEffect(() => {
-    async function cargarPlatos() {
-      try {
-        const datos = await getPlatos();
-        setPlatos(datos);
-      } catch (err) {
-        console.error(err);
-        setError("No se pudo cargar el menú.");
-      } finally {
-        setLoading(false);
-      }
+  const handleEnviarComanda = async () => {
+    if (pedido.items.length === 0) return;
+    setEnviando(true);
+    setError(null);
+    try {
+      const nuevoPedido = await crearPedido({
+        mesaId: pedido.mesaId,
+        tipo: pedido.tipo,
+        items: pedido.items,
+      });
+      setPedidoCreado(nuevoPedido);
+      limpiarPedido();
+    } catch (err) {
+      console.error(err);
+      setError("No se pudo crear el pedido. Intenta de nuevo.");
+    } finally {
+      setEnviando(false);
     }
+  };
 
-    cargarPlatos();
-  }, []);
-
-  function agregarPlato(plato) {
-    const existe = carrito.find((item) => item._id === plato._id);
-
-    if (existe) {
-      setCarrito(
-        carrito.map((item) =>
-          item._id === plato._id
-            ? { ...item, cantidad: item.cantidad + 1 }
-            : item
-        )
-      );
-    } else {
-      setCarrito([...carrito, { ...plato, cantidad: 1 }]);
-    }
+  // Si el pedido ya fue creado, mostrar confirmación
+  if (pedidoCreado) {
+    return (
+      <div style={{ padding: "20px", textAlign: "center" }}>
+        <h1>✅ Comanda enviada</h1>
+        <p>
+          <strong>Pedido:</strong> #{pedidoCreado._id}
+        </p>
+        <p>
+          <strong>Estado:</strong> {pedidoCreado.estado}
+        </p>
+        <p>El pedido fue enviado correctamente a la cocina.</p>
+      </div>
+    );
   }
-
-  function quitarPlato(id) {
-    setCarrito(carrito.filter((item) => item._id !== id));
-  }
-
-  const total = carrito.reduce(
-    (sum, item) => sum + item.precio * item.cantidad,
-    0
-  );
-
-  if (loading) return <h2>Cargando menú...</h2>;
-
-  if (error) return <h2>{error}</h2>;
 
   return (
-    <div>
-      <h1>🛒 Carrito de Compras</h1>
-      <p>Selecciona los platos que deseas pedir.</p>
-
+    <div style={{ padding: "20px" }}>
+      <h1>🛒 Comanda activa</h1>
+      <p>
+        <strong>Tipo:</strong> {pedido.tipo}
+      </p>
       <hr />
-
-      <h2>Menú</h2>
-
-      {platos.map((plato) => (
-        <div
-          key={plato._id}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            border: "1px solid #ddd",
-            padding: "10px",
-            marginBottom: "10px",
-            borderRadius: "8px",
-          }}
-        >
-          <div>
-            <strong>{plato.nombre}</strong>
-            <br />
-            S/ {plato.precio}
-          </div>
-
-          <button onClick={() => agregarPlato(plato)}>
-            Agregar
-          </button>
-        </div>
-      ))}
-
-      <hr />
-
-      <h2>Pedido</h2>
-
-      {carrito.length === 0 ? (
+      {pedido.items.length === 0 ? (
         <p>No hay productos agregados.</p>
       ) : (
-        carrito.map((item) => (
+        pedido.items.map((item) => (
           <div
-            key={item._id}
+            key={item.platoId}
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              border: "1px solid #ddd",
+              padding: "10px",
               marginBottom: "10px",
+              borderRadius: "8px",
             }}
           >
             <div>
               <strong>{item.nombre}</strong>
-
               <br />
-
               Cantidad: {item.cantidad}
+              <br />
+              Subtotal: S/ {(item.precioUnitario * item.cantidad).toFixed(2)}
             </div>
-
-            <button onClick={() => quitarPlato(item._id)}>
-              Quitar
-            </button>
+            <button onClick={() => quitarPlato(item.platoId)}>Quitar</button>
           </div>
         ))
       )}
-
       <hr />
-
-      <h2>Total: S/ {total.toFixed(2)}</h2>
-
-      <button
-        onClick={() => setCarrito([])}
-        disabled={carrito.length === 0}
-      >
-        Vaciar carrito
-      </button>
+      <h2>Total: S/ {pedido.total.toFixed(2)}</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <div style={{ marginTop: "20px" }}>
+        <button onClick={() => cambiarTipo("mesa")} style={{ marginRight: "10px" }}>
+          Pedido Mesa
+        </button>
+        <button onClick={() => cambiarTipo("para_llevar")} style={{ marginRight: "10px" }}>
+          Para llevar
+        </button>
+        <button onClick={limpiarPedido} style={{ marginRight: "10px" }}>
+          Vaciar carrito
+        </button>
+        <button
+          onClick={handleEnviarComanda}
+          disabled={enviando || pedido.items.length === 0}
+        >
+          {enviando ? "Enviando comanda..." : "Enviar comanda"}
+        </button>
+      </div>
     </div>
   );
 }
