@@ -1,101 +1,86 @@
 import { useState, useEffect } from "react";
-import { getPlatos } from "../services/api";
+import { Link, useNavigate } from "react-router-dom";
+import { getMesas } from "../services/api";
+import { usePedido } from "../context/PedidoContext";
 
-export default function MenuPage() {
-  const [platos, setPlatos] = useState([]);
+export default function MesasPage() {
+  const [mesas, setMesas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [busqueda, setBusqueda] = useState("");
+  const [error, setError] = useState(null);
+  const { asignarMesa } = usePedido();
+  const navigate = useNavigate();
 
-  // 1. Carga de datos al montar el componente
   useEffect(() => {
-    async function cargarMenu() {
+    async function cargarMesas() {
       try {
-        const data = await getPlatos();
-        setPlatos(data);
+        setLoading(true);
+        const data = await getMesas();
+        setMesas(data);
+        setError(null);
       } catch (err) {
         console.error(err);
-        setError("No se pudo cargar el menú.");
+        setError("No se pudieron cargar las mesas.");
       } finally {
         setLoading(false);
       }
     }
-
-    cargarMenu();
+    cargarMesas();
   }, []);
 
-  // 2. Estado derivado: filtrado dinámico según la búsqueda
-  const platosFiltrados = platos.filter((plato) =>
-    plato.nombre.toLowerCase().includes(busqueda.toLowerCase())
-  );
-
-  // 3. Estados de carga y error
   if (loading) {
-    return (
-      <div className="container">
-        <h2>Cargando menú...</h2>
-      </div>
-    );
+    return <p>Cargando mesas...</p>;
   }
-
   if (error) {
-    return (
-      <div className="container">
-        <h2>{error}</h2>
-      </div>
-    );
+    return <p>{error}</p>;
   }
 
-  // 4. Renderizado principal
   return (
-    <div className="container">
-      <h1 className="title">Carta del Restaurante</h1>
-      <p className="subtitle">
-        Estos son los platos disponibles para nuestros clientes.
-      </p>
-
-      {/* Input de búsqueda */}
-      <input
-        type="text"
-        placeholder="Buscar un plato..."
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "12px",
-          marginBottom: "25px",
-          borderRadius: "8px",
-          border: "1px solid #ccc",
-          fontSize: "16px",
-        }}
-      />
-
-      {/* Grilla de platos filtrados */}
-      <div className="grid">
-        {platosFiltrados.length > 0 ? (
-          platosFiltrados.map((plato) => (
-            <div className="card" key={plato._id}>
-              <h2>{plato.nombre}</h2>
-
-              <p>
-                <strong>Precio:</strong> S/ {plato.precio}
-              </p>
-
-              {plato.descripcion && <p>{plato.descripcion}</p>}
-
-              {plato.stock !== undefined && (
-                <p>
-                  <strong>Stock:</strong> {plato.stock}
-                </p>
-              )}
-
-              <button className="btn">Agregar al carrito</button>
-            </div>
-          ))
-        ) : (
-          <p>No se encontraron platos que coincidan con la búsqueda.</p>
-        )}
-      </div>
-    </div>
+    <>
+      <h1>Mesas del Restaurante</h1>
+      <section>
+        {mesas.map((mesa) => (
+          <div
+            key={mesa.id}
+            style={{
+              background:
+                mesa.estado === "libre"
+                  ? "green"
+                  : mesa.estado === "ocupada"
+                  ? "red"
+                  : "orange",
+              color: "white",
+              padding: "15px",
+              margin: "10px",
+              borderRadius: "8px",
+              width: "220px",
+            }}
+          >
+            <strong>Mesa {mesa.numero}</strong>
+            <br />
+            Capacidad: {mesa.capacidad}
+            <br />
+            Estado: {mesa.estado}
+            <br />
+            Comensales: {mesa.comensales}
+            <br />
+            <br />
+            <button
+              onClick={() => {
+                asignarMesa(mesa.id);
+                navigate("/carrito");
+              }}
+              disabled={mesa.estado !== "libre"}
+            >
+              Seleccionar mesa
+            </button>
+            <br />
+            <br />
+            <Link to={`/mesas/${mesa.id}`} style={{ color: "white" }}>
+              Ver detalle
+            </Link>
+          </div>
+        ))}
+      </section>
+    </>
   );
 }
