@@ -1,12 +1,30 @@
-import PropTypes from "prop-types";
+// src/components/PlatoCard.tsx
+import type { CSSProperties } from "react";
 
+// 1. Declara la interface del modelo Plato
+interface Plato {
+  _id: string;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  categoria: string;
+  disponible: boolean;
+}
+
+// 2. Declara las props del componente
+interface PlatoCardProps {
+  plato: Plato;
+  onAgregar?: (plato: Plato) => void;
+}
+
+// 3. Tipea el componente
 export default function PlatoCard({
-  nombre,
-  precio,
-  disponible,
-  onAgregar,
-}) {
-  const estilos = {
+  plato,
+  onAgregar = () => {},
+}: PlatoCardProps) {
+  const { nombre, precio, disponible } = plato;
+
+  const estilos: { [key: string]: CSSProperties } = {
     card: {
       width: "250px",
       backgroundColor: "#fff",
@@ -17,24 +35,20 @@ export default function PlatoCard({
       boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
       textAlign: "center",
     },
-
     titulo: {
       fontSize: "22px",
       marginBottom: "10px",
     },
-
     precio: {
       fontSize: "20px",
       fontWeight: "bold",
       color: "#16a34a",
     },
-
     estado: {
       margin: "10px 0",
       fontWeight: "bold",
       color: disponible ? "green" : "red",
     },
-
     boton: {
       backgroundColor: disponible ? "#2563eb" : "#999",
       color: "white",
@@ -58,7 +72,7 @@ export default function PlatoCard({
 
       <button
         style={estilos.boton}
-        onClick={onAgregar}
+        onClick={() => onAgregar(plato)}
         disabled={!disponible}
       >
         Agregar al carrito
@@ -66,14 +80,3 @@ export default function PlatoCard({
     </div>
   );
 }
-
-PlatoCard.propTypes = {
-  nombre: PropTypes.string.isRequired,
-  precio: PropTypes.number.isRequired,
-  disponible: PropTypes.bool.isRequired,
-  onAgregar: PropTypes.func,
-};
-
-PlatoCard.defaultProps = {
-  onAgregar: () => {},
-};
