@@ -1,7 +1,12 @@
 import { NavLink } from "react-router-dom";
+import type { CSSProperties } from "react";
 
-export default function NavBar({ nombreRestaurante }) {
-  const estilos = {
+interface NavBarProps {
+  nombreRestaurante: string;
+}
+
+export default function NavBar({ nombreRestaurante }: NavBarProps) {
+  const estilos: { [key: string]: CSSProperties } = {
     header: {
       backgroundColor: "#1f2937",
       color: "white",
@@ -10,7 +15,6 @@ export default function NavBar({ nombreRestaurante }) {
       fontSize: "28px",
       fontWeight: "bold",
     },
-
     nav: {
       display: "flex",
       justifyContent: "center",
@@ -21,7 +25,7 @@ export default function NavBar({ nombreRestaurante }) {
     },
   };
 
-  const estiloLink = ({ isActive }) => ({
+  const estiloLink = ({ isActive }: { isActive: boolean }): CSSProperties => ({
     textDecoration: "none",
     color: isActive ? "#facc15" : "white",
     fontWeight: isActive ? "bold" : "normal",
@@ -32,27 +36,21 @@ export default function NavBar({ nombreRestaurante }) {
 
   return (
     <>
-      <header style={estilos.header}>
-        {nombreRestaurante}
-      </header>
+      <header style={estilos.header}>{nombreRestaurante}</header>
 
       <nav style={estilos.nav}>
         <NavLink to="/" style={estiloLink}>
           Inicio
         </NavLink>
-
         <NavLink to="/menu" style={estiloLink}>
           Carta
         </NavLink>
-
         <NavLink to="/mesas" style={estiloLink}>
           Mesas
         </NavLink>
-
         <NavLink to="/comandas" style={estiloLink}>
           Comandas
         </NavLink>
-
         <NavLink to="/carrito" style={estiloLink}>
           Carrito
         </NavLink>

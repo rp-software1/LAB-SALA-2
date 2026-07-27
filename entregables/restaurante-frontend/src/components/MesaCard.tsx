@@ -1,5 +1,24 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import type { CSSProperties } from "react";
+
+// Union type con los estados REALES que usa tu mock
+type EstadoMesa = "libre" | "ocupada" | "reservada";
+
+interface Mesa {
+  id: number;
+  numero: number;
+  capacidad: number;
+  estado: EstadoMesa;
+  comensales: number;
+}
+
+interface MesaCardProps {
+  id: number;
+  numero: number;
+  capacidad: number;
+  estado: EstadoMesa;
+  comensales: number;
+}
 
 export default function MesaCard({
   id,
@@ -7,7 +26,7 @@ export default function MesaCard({
   capacidad,
   estado,
   comensales,
-}) {
+}: MesaCardProps) {
   const obtenerColor = () => {
     switch (estado) {
       case "libre":
@@ -21,7 +40,7 @@ export default function MesaCard({
     }
   };
 
-  const estilos = {
+  const estilos: { [key: string]: CSSProperties } = {
     card: {
       width: "250px",
       backgroundColor: "#fff",
@@ -32,18 +51,15 @@ export default function MesaCard({
       boxShadow: "0 3px 10px rgba(0,0,0,0.15)",
       textAlign: "center",
     },
-
     titulo: {
       marginBottom: "10px",
       color: "#1f2937",
     },
-
     estado: {
       fontWeight: "bold",
       color: obtenerColor(),
       margin: "10px 0",
     },
-
     boton: {
       display: "inline-block",
       marginTop: "12px",
@@ -68,24 +84,11 @@ export default function MesaCard({
         <strong>Comensales:</strong> {comensales}
       </p>
 
-      <p style={estilos.estado}>
-        Estado: {estado.toUpperCase()}
-      </p>
+      <p style={estilos.estado}>Estado: {estado.toUpperCase()}</p>
 
-      <Link
-        to={`/mesas/${id}`}
-        style={estilos.boton}
-      >
+      <Link to={`/mesas/${id}`} style={estilos.boton}>
         Ver detalle
       </Link>
     </div>
   );
 }
-
-MesaCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  numero: PropTypes.number.isRequired,
-  capacidad: PropTypes.number.isRequired,
-  estado: PropTypes.string.isRequired,
-  comensales: PropTypes.number.isRequired,
-};
