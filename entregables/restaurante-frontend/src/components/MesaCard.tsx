@@ -1,16 +1,6 @@
 import { Link } from "react-router-dom";
 import type { CSSProperties } from "react";
-
-// Union type con los estados REALES que usa tu mock
-type EstadoMesa = "libre" | "ocupada" | "reservada";
-
-interface Mesa {
-  id: number;
-  numero: number;
-  capacidad: number;
-  estado: EstadoMesa;
-  comensales: number;
-}
+import type { EstadoMesa } from "../types";
 
 interface MesaCardProps {
   id: number;
@@ -30,13 +20,13 @@ export default function MesaCard({
   const obtenerColor = () => {
     switch (estado) {
       case "libre":
-        return "#22c55e"; // Verde
+        return "#22c55e";
       case "ocupada":
-        return "#ef4444"; // Rojo
+        return "#ef4444";
       case "reservada":
-        return "#f59e0b"; // Amarillo
+        return "#f59e0b";
       default:
-        return "#6b7280"; // Gris
+        return "#6b7280";
     }
   };
 
@@ -51,15 +41,8 @@ export default function MesaCard({
       boxShadow: "0 3px 10px rgba(0,0,0,0.15)",
       textAlign: "center",
     },
-    titulo: {
-      marginBottom: "10px",
-      color: "#1f2937",
-    },
-    estado: {
-      fontWeight: "bold",
-      color: obtenerColor(),
-      margin: "10px 0",
-    },
+    titulo: { marginBottom: "10px", color: "#1f2937" },
+    estado: { fontWeight: "bold", color: obtenerColor(), margin: "10px 0" },
     boton: {
       display: "inline-block",
       marginTop: "12px",
@@ -75,20 +58,10 @@ export default function MesaCard({
   return (
     <div style={estilos.card}>
       <h2 style={estilos.titulo}>🪑 Mesa {numero}</h2>
-
-      <p>
-        <strong>Capacidad:</strong> {capacidad} personas
-      </p>
-
-      <p>
-        <strong>Comensales:</strong> {comensales}
-      </p>
-
+      <p><strong>Capacidad:</strong> {capacidad} personas</p>
+      <p><strong>Comensales:</strong> {comensales}</p>
       <p style={estilos.estado}>Estado: {estado.toUpperCase()}</p>
-
-      <Link to={`/mesas/${id}`} style={estilos.boton}>
-        Ver detalle
-      </Link>
+      <Link to={`/mesas/${id}`} style={estilos.boton}>Ver detalle</Link>
     </div>
   );
 }
