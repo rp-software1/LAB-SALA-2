@@ -26,6 +26,7 @@ export interface Plato {
   precio: number;
   categoria?: string;
   disponible?: boolean;
+  stock?: number;
 }
 
 export interface ItemPedido {

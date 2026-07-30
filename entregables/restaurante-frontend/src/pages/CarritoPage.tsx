@@ -1,27 +1,28 @@
-// src/pages/CarritoPage.jsx
+// src/pages/CarritoPage.tsx
 import { useState } from "react";
+import type { Pedido } from "../types";
 import { crearPedido } from "../services/api";
 import { usePedido } from "../context/PedidoContext";
 
 export default function CarritoPage() {
   const { pedido, quitarPlato, cambiarTipo, limpiarPedido } = usePedido();
-  const [enviando, setEnviando] = useState(false);
-  const [error, setError] = useState(null);
-  const [pedidoCreado, setPedidoCreado] = useState(null);
+  const [enviando, setEnviando] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [pedidoCreado, setPedidoCreado] = useState<Pedido | null>(null);
 
-  const handleEnviarComanda = async () => {
+  const handleEnviarComanda = async (): Promise<void> => {
     if (pedido.items.length === 0) return;
     setEnviando(true);
     setError(null);
     try {
-      const nuevoPedido = await crearPedido({
+      const nuevoPedido: Pedido = await crearPedido({
         mesaId: pedido.mesaId,
         tipo: pedido.tipo,
         items: pedido.items,
       });
       setPedidoCreado(nuevoPedido);
       limpiarPedido();
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
       setError("No se pudo crear el pedido. Intenta de nuevo.");
     } finally {
@@ -29,7 +30,6 @@ export default function CarritoPage() {
     }
   };
 
-  // Si el pedido ya fue creado, mostrar confirmación
   if (pedidoCreado) {
     return (
       <div style={{ padding: "20px", textAlign: "center" }}>
@@ -38,7 +38,7 @@ export default function CarritoPage() {
           <strong>Pedido:</strong> #{pedidoCreado._id}
         </p>
         <p>
-          <strong>Estado:</strong> {pedidoCreado.estado}
+          <strong>Estado:</strong> {String(pedidoCreado.estado)}
         </p>
         <p>El pedido fue enviado correctamente a la cocina.</p>
       </div>

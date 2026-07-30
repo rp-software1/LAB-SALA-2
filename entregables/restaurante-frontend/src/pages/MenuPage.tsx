@@ -1,39 +1,39 @@
+// src/pages/MenuPage.tsx
 import { useState, useEffect } from "react";
+import type { Plato } from "../types";
 import { getPlatos } from "../services/api";
 import { usePedido } from "../context/PedidoContext";
 
 export default function MenuPage() {
-  const [platos, setPlatos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [busqueda, setBusqueda] = useState("");
+  const [platos, setPlatos] = useState<Plato[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [busqueda, setBusqueda] = useState<string>("");
 
-  // NUEVO
   const { pedido, agregarPlato } = usePedido();
 
-  // NUEVO
   const totalItems = pedido.items.reduce(
     (acc, item) => acc + item.cantidad,
     0
   );
 
   useEffect(() => {
-    async function cargarMenu() {
+    const cargarMenu = async (): Promise<void> => {
       try {
-        const data = await getPlatos();
+        const data: Plato[] = await getPlatos();
         setPlatos(data);
-      } catch (err) {
+      } catch (err: unknown) {
         console.error(err);
         setError("No se pudo cargar el menú.");
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     cargarMenu();
   }, []);
 
-  const platosFiltrados = platos.filter((plato) =>
+  const platosFiltrados = platos.filter((plato: Plato) =>
     plato.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
 
@@ -49,9 +49,7 @@ export default function MenuPage() {
     <div>
       <h1>Carta del Restaurante</h1>
 
-      <p>
-        Estos son los platos disponibles para nuestros clientes.
-      </p>
+      <p>Estos son los platos disponibles para nuestros clientes.</p>
 
       <input
         type="text"
@@ -70,7 +68,7 @@ export default function MenuPage() {
 
       <div className="grid">
         {platosFiltrados.length > 0 ? (
-          platosFiltrados.map((plato) => (
+          platosFiltrados.map((plato: Plato) => (
             <div className="card" key={plato._id}>
               <h2>{plato.nombre}</h2>
 
@@ -86,10 +84,7 @@ export default function MenuPage() {
                 </p>
               )}
 
-              <button
-                className="btn"
-                onClick={() => agregarPlato(plato)}
-              >
+              <button className="btn" onClick={() => agregarPlato(plato)}>
                 Agregar al carrito
               </button>
             </div>
@@ -99,7 +94,6 @@ export default function MenuPage() {
         )}
       </div>
 
-      {/* NUEVO */}
       {totalItems > 0 && (
         <div
           style={{
