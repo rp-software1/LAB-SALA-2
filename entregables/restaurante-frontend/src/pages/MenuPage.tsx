@@ -8,8 +8,10 @@ export default function MenuPage() {
   const [error, setError] = useState("");
   const [busqueda, setBusqueda] = useState("");
 
+  // NUEVO
   const { pedido, agregarPlato } = usePedido();
 
+  // NUEVO
   const totalItems = pedido.items.reduce(
     (acc, item) => acc + item.cantidad,
     0
@@ -27,6 +29,7 @@ export default function MenuPage() {
         setLoading(false);
       }
     }
+
     cargarMenu();
   }, []);
 
@@ -35,25 +38,18 @@ export default function MenuPage() {
   );
 
   if (loading) {
-    return (
-      <div className="container">
-        <h2>Cargando menú...</h2>
-      </div>
-    );
+    return <p>Cargando menú...</p>;
   }
 
   if (error) {
-    return (
-      <div className="container">
-        <h2>{error}</h2>
-      </div>
-    );
+    return <p>{error}</p>;
   }
 
   return (
-    <div className="container">
-      <h1 className="title">Carta del Restaurante</h1>
-      <p className="subtitle">
+    <div>
+      <h1>Carta del Restaurante</h1>
+
+      <p>
         Estos son los platos disponibles para nuestros clientes.
       </p>
 
@@ -77,16 +73,23 @@ export default function MenuPage() {
           platosFiltrados.map((plato) => (
             <div className="card" key={plato._id}>
               <h2>{plato.nombre}</h2>
+
               <p>
                 <strong>Precio:</strong> S/ {plato.precio}
               </p>
+
               {plato.descripcion && <p>{plato.descripcion}</p>}
+
               {plato.stock !== undefined && (
                 <p>
                   <strong>Stock:</strong> {plato.stock}
                 </p>
               )}
-              <button className="btn" onClick={() => agregarPlato(plato)}>
+
+              <button
+                className="btn"
+                onClick={() => agregarPlato(plato)}
+              >
                 Agregar al carrito
               </button>
             </div>
@@ -96,6 +99,7 @@ export default function MenuPage() {
         )}
       </div>
 
+      {/* NUEVO */}
       {totalItems > 0 && (
         <div
           style={{

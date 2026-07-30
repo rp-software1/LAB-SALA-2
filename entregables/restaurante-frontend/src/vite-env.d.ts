@@ -1,0 +1,1 @@
+printf '/// <reference types="vite/client" />\n' > src/vite-env.d.ts
