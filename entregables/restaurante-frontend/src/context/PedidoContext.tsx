@@ -1,8 +1,19 @@
+// src/context/PedidoContext.tsx
 import { createContext, useContext, useState } from "react";
+import type {
+  ReactNode,
+} from "react";
+import type {
+  Plato,
+  TipoPedido,
+  ItemPedido,
+  EstadoPedidoContext,
+  PedidoContextType,
+} from "../types";
 
-const PedidoContext = createContext(null);
+const PedidoContext = createContext<PedidoContextType | undefined>(undefined);
 
-const estadoInicial = {
+const estadoInicial: EstadoPedidoContext = {
   mesaId: null,
   tipo: "mesa",
   estado: "pendiente",
@@ -10,33 +21,30 @@ const estadoInicial = {
   total: 0,
 };
 
-export function PedidoProvider({ children }) {
-  const [pedido, setPedido] = useState(estadoInicial);
+interface PedidoProviderProps {
+  children: ReactNode;
+}
 
-  // Calcula el total
-  const calcularTotal = (items) => {
+export function PedidoProvider({ children }: PedidoProviderProps) {
+  const [pedido, setPedido] = useState<EstadoPedidoContext>(estadoInicial);
+
+  const calcularTotal = (items: ItemPedido[]): number => {
     return items.reduce(
       (acc, item) => acc + item.precioUnitario * item.cantidad,
       0
     );
   };
 
-  // Agregar plato
-  const agregarPlato = (plato) => {
+  const agregarPlato = (plato: Plato): void => {
     setPedido((prev) => {
-      const existe = prev.items.find(
-        (item) => item.platoId === plato._id
-      );
+      const existe = prev.items.find((item) => item.platoId === plato._id);
 
-      let nuevosItems;
+      let nuevosItems: ItemPedido[];
 
       if (existe) {
         nuevosItems = prev.items.map((item) =>
           item.platoId === plato._id
-            ? {
-                ...item,
-                cantidad: item.cantidad + 1,
-              }
+            ? { ...item, cantidad: item.cantidad + 1 }
             : item
         );
       } else {
@@ -59,16 +67,12 @@ export function PedidoProvider({ children }) {
     });
   };
 
-  // Quitar plato
-  const quitarPlato = (platoId) => {
+  const quitarPlato = (platoId: string): void => {
     setPedido((prev) => {
       const nuevosItems = prev.items
         .map((item) =>
           item.platoId === platoId
-            ? {
-                ...item,
-                cantidad: item.cantidad - 1,
-              }
+            ? { ...item, cantidad: item.cantidad - 1 }
             : item
         )
         .filter((item) => item.cantidad > 0);
@@ -81,8 +85,7 @@ export function PedidoProvider({ children }) {
     });
   };
 
-  // Cambiar tipo
-  const cambiarTipo = (tipo) => {
+  const cambiarTipo = (tipo: TipoPedido): void => {
     setPedido((prev) => ({
       ...prev,
       tipo,
@@ -90,15 +93,14 @@ export function PedidoProvider({ children }) {
     }));
   };
 
-  const asignarMesa = (mesaId) => {
-  setPedido((prev) => ({
-    ...prev,
-    mesaId,
+  const asignarMesa = (mesaId: string): void => {
+    setPedido((prev) => ({
+      ...prev,
+      mesaId,
     }));
   };
 
-  // Limpiar pedido
-  const limpiarPedido = () => {
+  const limpiarPedido = (): void => {
     setPedido(estadoInicial);
   };
 
@@ -118,13 +120,11 @@ export function PedidoProvider({ children }) {
   );
 }
 
-export function usePedido() {
+export function usePedido(): PedidoContextType {
   const context = useContext(PedidoContext);
 
   if (!context) {
-    throw new Error(
-      "usePedido debe usarse dentro de PedidoProvider"
-    );
+    throw new Error("usePedido debe usarse dentro de PedidoProvider");
   }
 
   return context;
