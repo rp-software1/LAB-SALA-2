@@ -1,31 +1,38 @@
+// src/pages/MesasPage.tsx
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import type { Mesa } from "../types";
 import { getMesas } from "../services/api";
 import { usePedido } from "../context/PedidoContext";
 
 export default function MesasPage() {
-  const [mesas, setMesas] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [mesas, setMesas] = useState<Mesa[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const { asignarMesa } = usePedido();
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function cargarMesas() {
+    const cargarMesas = async (): Promise<void> => {
       try {
         setLoading(true);
-        const data = await getMesas();
+        const data: Mesa[] = await getMesas();
         setMesas(data);
         setError(null);
-      } catch (err) {
+      } catch (err: unknown) {
         console.error(err);
         setError("No se pudieron cargar las mesas.");
       } finally {
         setLoading(false);
       }
-    }
+    };
     cargarMesas();
   }, []);
+
+  const handleSeleccionarMesa = (mesa: Mesa): void => {
+    asignarMesa(String(mesa.id));
+    navigate("/carrito");
+  };
 
   if (loading) {
     return <p>Cargando mesas...</p>;
@@ -38,7 +45,7 @@ export default function MesasPage() {
     <>
       <h1>Mesas del Restaurante</h1>
       <section>
-        {mesas.map((mesa) => (
+        {mesas.map((mesa: Mesa) => (
           <div
             key={mesa.id}
             style={{
@@ -65,10 +72,7 @@ export default function MesasPage() {
             <br />
             <br />
             <button
-              onClick={() => {
-                asignarMesa(mesa.id);
-                navigate("/carrito");
-              }}
+              onClick={() => handleSeleccionarMesa(mesa)}
               disabled={mesa.estado !== "libre"}
             >
               Seleccionar mesa
