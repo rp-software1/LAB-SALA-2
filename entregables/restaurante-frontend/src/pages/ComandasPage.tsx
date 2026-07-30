@@ -1,23 +1,21 @@
-// pages/ComandasPage.jsx
-import React, { useState } from "react";
+// pages/ComandasPage.tsx
+import { useState } from "react";
 import OrderForm from "../components/OrderForm";
-// Importamos el mock de mesas del proyecto
 import { mesasMock as mesas } from "../data/mesas.mock";
 
 function ComandasPage() {
-  // Inicializamos el estado con el id o número de la primera mesa disponible
-  const [mesaSeleccionada, setMesaSeleccionada] = useState(
-    mesas && mesas.length > 0 ? mesas[0].numero : ""
+  const [mesaSeleccionada, setMesaSeleccionada] = useState<string>(
+    mesas && mesas.length > 0 ? String(mesas[0].numero) : ""
   );
 
-  const handleMesaChange = (event) => {
+  const handleMesaChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     setMesaSeleccionada(event.target.value);
   };
 
   return (
     <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
       <h1>Módulo de Comandas</h1>
-      
+
       <div style={{ marginBottom: "20px" }}>
         <label htmlFor="mesa-select" style={{ marginRight: "10px", fontWeight: "bold" }}>
           Selecciona una mesa:
@@ -29,7 +27,6 @@ function ComandasPage() {
           style={{ padding: "8px", borderRadius: "4px", fontSize: "16px" }}
         >
           {mesas.map((mesa) => (
-            // Usamos una propiedad id o numero según esté declarada en su archivo mock
             <option key={mesa.id || mesa.numero} value={mesa.numero}>
               Mesa {mesa.numero} {mesa.capacidad ? `(${mesa.capacidad} personas)` : ""}
             </option>
@@ -39,9 +36,8 @@ function ComandasPage() {
 
       <hr style={{ margin: "20px 0", borderColor: "#eee" }} />
 
-      {/* Renderizado de nuestro formulario migrado */}
       {mesaSeleccionada ? (
-        <OrderForm mesaNumero={mesaSeleccionada} />
+        <OrderForm mesaNumero={Number(mesaSeleccionada)} />
       ) : (
         <p>Por favor, selecciona una mesa para empezar la comanda.</p>
       )}

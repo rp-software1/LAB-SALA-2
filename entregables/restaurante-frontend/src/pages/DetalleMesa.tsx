@@ -1,14 +1,16 @@
+// src/pages/DetalleMesa.tsx
 import { useParams, useNavigate } from "react-router-dom";
+import type { Mesa } from "../types";
 import { mesasMock } from "../data/mesas.mock";
 
 export default function DetalleMesa() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  // Buscar la mesa por ID
-  const mesa = mesasMock.find((m) => m.id === Number(id));
+  const mesa: Mesa | undefined = mesasMock.find(
+    (m) => m.id === Number(id)
+  );
 
-  // Si no existe
   if (!mesa) {
     return (
       <div className="card">
@@ -18,14 +20,11 @@ export default function DetalleMesa() {
           No existe una mesa con el ID <strong>{id}</strong>.
         </p>
 
-        <button onClick={() => navigate("/mesas")}>
-          Volver a Mesas
-        </button>
+        <button onClick={() => navigate("/mesas")}>Volver a Mesas</button>
       </div>
     );
   }
 
-  // Si existe
   return (
     <div className="card">
       <h1>🍽 Mesa {mesa.numero}</h1>
@@ -63,9 +62,7 @@ export default function DetalleMesa() {
 
       <br />
 
-      <button onClick={() => navigate("/mesas")}>
-        ← Volver
-      </button>
+      <button onClick={() => navigate("/mesas")}>← Volver</button>
     </div>
   );
 }

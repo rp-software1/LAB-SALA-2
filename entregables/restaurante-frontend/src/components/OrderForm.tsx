@@ -1,51 +1,39 @@
-// components/OrderForm.jsx
-// VERSIÓN MODERNA — Componente Funcional con Hooks
-import React, { useState, useEffect } from "react";
+// components/OrderForm.tsx
+import { useState, useEffect } from "react";
 
-function OrderForm({ mesaNumero }) {
-  // ==========================================
-  // PRIMERO: El Estado (useState)
-  // ==========================================
-  const [plato, setPlato] = useState("");
-  const [cantidad, setCantidad] = useState(1);
-  const [enviando, setEnviando] = useState(false);
-  const [mensaje, setMensaje] = useState("");
+interface OrderFormProps {
+  mesaNumero: number;
+}
 
-  // ==========================================
-  // SEGUNDO: El Ciclo de Vida (useEffect)
-  // ==========================================
+function OrderForm({ mesaNumero }: OrderFormProps) {
+  const [plato, setPlato] = useState<string>("");
+  const [cantidad, setCantidad] = useState<number>(1);
+  const [enviando, setEnviando] = useState<boolean>(false);
+  const [mensaje, setMensaje] = useState<string>("");
+
   useEffect(() => {
     console.log("OrderForm montado — mesa disponible:", mesaNumero);
-  }, []); // El array vacío [] asegura que solo se ejecute al montar
+  }, []);
 
-  // ==========================================
-  // TERCERO: Los Handlers
-  // ==========================================
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
-    // Traducimos el [name]: value dinámico usando los setters independientes
     if (name === "plato") setPlato(value);
-    if (name === "cantidad") setCantidad(Number(value)); 
+    if (name === "cantidad") setCantidad(Number(value));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     setEnviando(true);
     setMensaje("");
 
-    // Simulación de API idéntica a la legacy
     setTimeout(() => {
       setEnviando(false);
       setMensaje(`Comanda enviada: ${plato} x${cantidad}`);
-      // Reseteamos el formulario mediante sus hooks correspondientes
       setPlato("");
       setCantidad(1);
     }, 1500);
   };
 
-  // ==========================================
-  // CUARTO: El Return (Sin render())
-  // ==========================================
   return (
     <form onSubmit={handleSubmit}>
       <h2>Comanda — Mesa {mesaNumero}</h2>
