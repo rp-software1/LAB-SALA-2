@@ -2,15 +2,18 @@
 
 import { useState } from 'react';
 import type { Plato } from '../../src/types';
+import { usePedido } from '../../src/context/PedidoProvider';
 
 interface PlatoCardProps {
   plato: Plato;
 }
 
 export default function PlatoCard({ plato }: PlatoCardProps) {
+  const { agregarPlato } = usePedido();
   const [agregado, setAgregado] = useState<boolean>(false);
 
   const handleAgregar = (): void => {
+    agregarPlato(plato);
     setAgregado(true);
     setTimeout(() => setAgregado(false), 1500);
   };

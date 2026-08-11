@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { CSSProperties } from 'react';
+import { usePedido } from '../../src/context/PedidoProvider';
 
 interface NavBarProps {
   nombreRestaurante: string;
@@ -10,6 +11,9 @@ interface NavBarProps {
 
 export default function NavBar({ nombreRestaurante }: NavBarProps) {
   const pathname = usePathname();
+  const { pedido } = usePedido();
+
+  const totalItems = pedido.items.reduce((acc, item) => acc + item.cantidad, 0);
 
   const estilos: { [key: string]: CSSProperties } = {
     header: {
@@ -27,6 +31,15 @@ export default function NavBar({ nombreRestaurante }: NavBarProps) {
       backgroundColor: '#374151',
       padding: '15px',
       marginBottom: '25px',
+      alignItems: 'center',
+    },
+    badge: {
+      marginLeft: '6px',
+      backgroundColor: '#ef4444',
+      color: 'white',
+      fontSize: '12px',
+      borderRadius: '9999px',
+      padding: '2px 8px',
     },
   };
 
@@ -51,7 +64,10 @@ export default function NavBar({ nombreRestaurante }: NavBarProps) {
         <Link href="/menu" style={estiloLink('/menu')}>Carta</Link>
         <Link href="/mesas" style={estiloLink('/mesas')}>Mesas</Link>
         <Link href="/comandas" style={estiloLink('/comandas')}>Comandas</Link>
-        <Link href="/carrito" style={estiloLink('/carrito')}>Carrito</Link>
+        <Link href="/carrito" style={estiloLink('/carrito')}>
+          Carrito
+          {totalItems > 0 && <span style={estilos.badge}>{totalItems}</span>}
+        </Link>
       </nav>
     </>
   );
