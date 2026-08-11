@@ -1,18 +1,58 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePedido } from '../../src/context/PedidoProvider';
+import { enviarComanda } from './actions';
 import type { ItemPedido } from '../../src/types';
-// import { enviarComanda } from './actions'; // ← se conecta en Bloque D
 
 export default function CarritoPage() {
   const { pedido, quitarPlato, limpiarPedido } = usePedido();
   const router = useRouter();
 
+  const [enviando, setEnviando] = useState<boolean>(false);
+  const [confirmacion, setConfirmacion] = useState<string | null>(null);
+  const [errorEnvio, setErrorEnvio] = useState<string | null>(null);
+
   const totalVisual = pedido.items.reduce(
     (acc: number, item: ItemPedido) => acc + item.precioUnitario * item.cantidad,
     0
   );
+
+  const handleEnviar = async (): Promise<void> => {
+    setEnviando(true);
+    setErrorEnvio(null);
+
+    const resultado = await enviarComanda(pedido);
+
+    if (resultado.ok) {
+      setConfirmacion(resultado.pedidoId);
+      limpiarPedido();
+    } else {
+      setErrorEnvio(resultado.error);
+    }
+
+    setEnviando(false);
+  };
+
+  if (confirmacion) {
+    return (
+      <div className="text-center mt-16">
+        <p className="text-5xl mb-4">✅</p>
+        <h1 className="text-2xl font-bold mb-2">¡Comanda enviada!</h1>
+        <p className="text-gray-500 mb-2 text-sm font-mono">ID: {confirmacion}</p>
+        <button
+          onClick={() => {
+            setConfirmacion(null);
+            router.push('/mesas');
+          }}
+          className="mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+        >
+          Volver a las mesas
+        </button>
+      </div>
+    );
+  }
 
   if (pedido.items.length === 0) {
     return (
@@ -64,9 +104,15 @@ export default function CarritoPage() {
         </div>
       </div>
 
-      <p className="text-sm text-gray-400 text-center mb-3">
-        Botón de envío — se conecta en Bloque D
-      </p>
+      {errorEnvio && <p className="text-red-500 text-sm mb-3">{errorEnvio}</p>}
+
+      <button
+        onClick={handleEnviar}
+        disabled={enviando}
+        className="w-full bg-blue-600 text-white rounded py-3 font-bold hover:bg-blue-700 disabled:opacity-50"
+      >
+        {enviando ? 'Enviando comanda...' : 'Enviar comanda'}
+      </button>
 
       <button
         onClick={limpiarPedido}
