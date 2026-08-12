@@ -45,3 +45,12 @@ export async function cambiarEstadoPedido(
   if (!res.ok) throw new Error(`Error al cambiar estado: ${res.status}`);
   return res.json();
 }
+
+export async function getMesaById(id: number): Promise<Mesa> {
+  const res = await fetch(`${BASE_URL}/mesas/${id}`, { cache: 'no-store' });
+  if (res.status === 404) {
+    throw new Error(`Mesa con ID ${id} no encontrada`);
+  }
+  if (!res.ok) throw new Error(`Error al obtener mesa: ${res.status}`);
+  return res.json();
+}
