@@ -54,3 +54,9 @@ export async function getMesaById(id: number): Promise<Mesa> {
   if (!res.ok) throw new Error(`Error al obtener mesa: ${res.status}`);
   return res.json();
 }
+
+export async function getPedidos(): Promise<Pedido[]> {
+  const res = await fetch(`${BASE_URL}/pedidos`, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Error al obtener pedidos: ${res.status}`);
+  return res.json();
+}
