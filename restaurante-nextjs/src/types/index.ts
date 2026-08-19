@@ -36,3 +36,31 @@ export interface MesaResumen {
   capacidad: number;
   estado: EstadoMesa;
 }
+
+/** Estado posible de una comanda / pedido */
+export type EstadoPedido =
+  | "pendiente"
+  | "en_preparacion"
+  | "lista"
+  | "entregada"
+  | "cancelada"
+  | "cerrada";
+
+/** Ítem dentro de una comanda */
+export interface PedidoItem {
+  platoId: string;
+  nombre: string;
+  precioUnitario: number;
+  cantidad: number;
+}
+
+/** Una comanda / pedido del restaurante */
+export interface Pedido {
+  _id: string;
+  mesaId?: number;
+  tipo: "mesa" | "para_llevar";
+  estado: EstadoPedido;
+  items: PedidoItem[];
+  total: number;
+  creadoEn: string;
+}
