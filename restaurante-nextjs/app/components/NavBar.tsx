@@ -16,22 +16,28 @@ export default function NavBar() {
             Inicio
           </Link>
           <Link
-            href="/mesas/1"
+            href="/mesas"
             className="hover:text-amber-700 transition-colors"
           >
-            Mesa #1
+            Mesas
           </Link>
           <Link
-            href="/mesas/2"
+            href="/menu"
             className="hover:text-amber-700 transition-colors"
           >
-            Mesa #2
+            Menú
           </Link>
           <Link
             href="/comandas"
             className="hover:text-amber-700 transition-colors"
           >
             Comandas
+          </Link>
+          <Link
+            href="/carrito"
+            className="hover:text-amber-700 transition-colors"
+          >
+            Carrito
           </Link>
         </div>
       </div>
