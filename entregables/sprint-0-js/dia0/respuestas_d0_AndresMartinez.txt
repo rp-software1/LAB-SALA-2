@@ -1,2 +1,0 @@
-FEEDBACK:SeccionD: Me costó un poco agarrarle el ritmo a la terminal, a veces me olvidaba de guardar antes del commit y me desesperé un poco, pero ya le agarré el truco.
-FEEDBACK:SeccionE: Fue un poco caótico sincronizar todo con Angel, nos chocamos un par de veces con los cambios, pero al final lo logramos dejar andando bien.

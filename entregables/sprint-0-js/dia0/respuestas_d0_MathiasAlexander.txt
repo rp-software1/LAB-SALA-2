@@ -1,0 +1,69 @@
+1 — ¿Diferencia entre una carpeta normal y un repositorio Git?
+Una carpeta normal es solo un lugar donde viven tus archivos: el sistema operativo no sabe (ni le importa) qué cambió, cuándo, ni por qué. Si borras algo o lo modificás mal, se perdió y ya.
+Un repositorio Git es esa misma carpeta, pero con una carpeta oculta extra (.git) que actúa como una especie de "memoria". Ahí Git guarda:
+
+El historial completo de versiones de tus archivos (cada commit es una "foto" del proyecto en un momento dado).
+Metadatos de quién hizo cada cambio y cuándo.
+La posibilidad de volver atrás, comparar versiones, o tener varias líneas de trabajo en paralelo (branches).
+
+En resumen: la carpeta normal solo tiene el presente de tus archivos; el repositorio tiene el presente y todo su pasado, y la capacidad de rastrear cómo llegaste hasta ahí.
+2 — ¿Por qué existe git add si igual hacemos git commit?
+Esto confunde mucho al principio porque parece un paso redundante, pero tiene un propósito real: separar "qué cambios existen" de "qué cambios quiero guardar ahora".
+git add mueve archivos a lo que se llama el staging area (área de preparación). Es como armar una caja antes de sellarla: podés ir eligiendo exactamente qué cambios querés incluir en el próximo commit, aunque tengas más cambios sin terminar en otros archivos.
+Ejemplo concreto: modificaste 3 archivos, pero solo 2 de esos cambios están listos para guardarse como una unidad lógica (por ejemplo, "arreglé el bug del login"). El tercero todavía está a medio hacer. Con git add elegís esos 2 archivos nada más, y dejás el tercero afuera. Así el commit queda limpio y describe una sola cosa concreta, en vez de mezclar cambios sin relación.
+Sin ese paso intermedio, cada commit tendría que incluir todo lo que cambiaste, sin poder elegir — perderías esa precisión.
+
+¿Qué esperas que pase?
+Espero que el comando realice la acción para la que fue diseñado (por ejemplo, agregar archivos, crear un commit, cambiar de rama o subir cambios al repositorio).
+
+¿Qué verás en la terminal?
+Espero ver un mensaje indicando si el comando se ejecutó correctamente o si ocurrió algún error que deba corregir.
+
+¿Qué cambia en tu repositorio después de este comando?
+Espero que el estado del repositorio cambie según el comando ejecutado, por ejemplo, que se agreguen archivos al área de preparación, se cree un nuevo commit, se cambie de rama o se actualice el repositorio remoto.
+
+3 — ¿Qué diferencia hay entre el repositorio local y el remoto? ¿Cuál es la "fuente de verdad" del proyecto?
+La diferencia es que el repositorio local es la copia del proyecto que se encuentra en la computadora de cada desarrollador donde se pueden crear, modificar y guardar cambios mediante commits sin necesidad de conexión a Internet. En cambio, el repositorio remoto es la versión del proyecto almacenada en una plataforma como GitHub, que permite compartir el trabajo y colaborar con otras personas.
+La "Fuente de la verdad" en la mayoria de proyectos es el repositorio remoto ya que contiene la versión oficial y sincronizada que todo el equipo utiliza como referencia.
+
+4 — ¿Qué hace git push exactamente? ¿Sube todos los archivos o solo los commits nuevos?
+El git push envia al repositorio remoto los commits nuevos que existen en el repositorio local y que aún no están en el remoto y no sube todos los archivos cada vez, solo los cambios que aún no existen en el repositorio remoto.
+
+¿Qué esperas que pase?
+Que los commits del repositorio local se envíen al repositorio remoto en github.
+
+¿Qué verás en la terminal?
+Un tipo mensaje indicando que el push se ha realizado correctamente.
+
+¿Qué cambia en tu repositorio después de este comando?
+Que se actualizara con los commits que estaban solo en el repositorio local.
+
+
+
+CIERRE DE DIA
+
+1 — Antes de escribir una sola línea: ¿qué diferencia hay entre const y let? Den un ejemplo del restaurante para cada uno.
+const se utiliza para variables cuyo valor no va a cambiar durante la ejecución del programa.
+let se utiliza para variables cuyo valor puede modificarse.
+2 — ¿Qué pasa si intentan reasignar una variable declarada con const? ¿Qué error aparece?
+Si intentamos cambiar el valor de una variable declarada con const, JavaScript genera un error porque las constantes no pueden reasignarse.
+
+
+
+1. ¿Por qué JavaScript permite modificar plato.stock si el objeto está declarado con const?
+Porque const evita que se reasigne el objeto completo, pero sí permite modificar sus propiedades. Es decir, no podemos reemplazar el objeto por otro, pero sí cambiar valores como plato.stock.
+
+2. ¿Qué diferencia hay entre pasar un valor y pasar un objeto a una función? ¿Qué pasa con el original en cada caso?
+Cuando pasamos un valor (como un número o un texto), la función trabaja con una copia. Si la modifica, el valor original no cambia.
+Cuando pasamos un objeto, la función puede modificar sus propiedades, por lo que el objeto original sí cambia.
+
+
+TARJETA DE EVALUACIÓN — completar y subir a entregables/
+EVALUADOR: _______Marco________
+EVALUADO: ____Mathias___________
+ESCENARIO ELEGIDO: 22-23
+RESUMEN DE LA RESPUESTA:
+Un valor se pasa como copia; un objeto puede modificarse directamente.
+Está bien, pero usar return permite devolver el nuevo stock y reutilizarlo.
+QUÉ ENTENDIÓ BIEN (una frase):Comprendió la diferencia entre const y let, el uso de objetos y cómo funcionan las funciones en JavaScript.
+QUÉ NECESITA REPASAR (una frase):Necesita reforzar el uso de return en las funciones y entender mejor cuándo modificar un objeto y cuándo devolver un nuevo valor.

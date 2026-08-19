@@ -1,0 +1,25 @@
+TARJETA DE EVALUACIÓN — guardar en entregables/sprint-0-js/dia0/
+EVALUADOR: ___Cesar____________
+EVALUADO: __________Mathias_____
+ESCENARIO ELEGIDO: N°__3_
+RESUMEN DE LA RESPUESTA:el repositorio es como un libro q se guarda en la nube, el clone son descargas de tu computadora, commit  guardas el avance, push subes tus cambios
+QUÉ ENTENDIÓ BIEN (una frase): descargas proyectos
+QUÉ NECESITA REPASAR (una frase):guardas de manerea a la nube
+=======================================================================================================================================
+TARJETA DE EVALUACIÓN — completar y subir a entregables/
+EVALUADOR: _______Marco________
+EVALUADO: ____Mathias___________
+ESCENARIO ELEGIDO: 22-23
+RESUMEN DE LA RESPUESTA:
+Un valor se pasa como copia; un objeto puede modificarse directamente.
+Está bien, pero usar return permite devolver el nuevo stock y reutilizarlo.
+QUÉ ENTENDIÓ BIEN (una frase):Comprendió la diferencia entre const y let, el uso de objetos y cómo funcionan las funciones en JavaScript.
+QUÉ NECESITA REPASAR (una frase):Necesita reforzar el uso de return en las funciones y entender mejor cuándo modificar un objeto y cuándo devolver un nuevo valor.
+========================================================================================================================================
+TARJETA DE EVALUACIÓN — completar y subir a entregables/
+EVALUADOR: Mathias Vargas
+EVALUADO: Angel Mauricio
+ESCENARIO ELEGIDO: B
+RESUMEN DE LA RESPUESTA:La verdad es que al principio nos hicimos un lío tremendo con el cambio de escenario y nos costó arrancar porque no sabíamos bien quién empezaba. Una vez que nos aclaramos, lograste exponer los puntos clave, aunque se notó que todavía tenías la duda de la primera parte en la cabeza.
+QUÉ ENTENDIÓ BIEN (Me quedó clarísimo cómo manejaste la parte técnica del escenario, ahí sí dominaste el tema sin problemas.):
+QUÉ NECESITA REPASAR (Tienes que darle una vuelta a la estructura de la introducción para que no nos pase lo de la confusión inicial y estemos los dos en la misma página desde el segundo uno.):
