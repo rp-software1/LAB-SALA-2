@@ -1,0 +1,165 @@
+{
+  "mesas": [
+    {
+      "id": "1",
+      "numero": 1,
+      "capacidad": 4,
+      "estado": "disponible",
+      "ubicacion": "Interior - Ventana"
+    },
+    {
+      "id": "2",
+      "numero": 2,
+      "capacidad": 2,
+      "estado": "ocupada",
+      "ubicacion": "Interior - Central",
+      "pedidoActual": [
+        {
+          "id": "p1",
+          "nombre": "Lomo saltado",
+          "precio": 18,
+          "stock": 5,
+          "descripcion": "Clásico peruano con papas fritas"
+        },
+        {
+          "id": "p2",
+          "nombre": "Arroz con leche",
+          "precio": 8,
+          "stock": 10,
+          "descripcion": "Postre tradicional"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "numero": 3,
+      "capacidad": 6,
+      "estado": "reservada",
+      "ubicacion": "Terraza"
+    },
+    {
+      "id": "4",
+      "numero": 4,
+      "capacidad": 4,
+      "estado": "disponible",
+      "ubicacion": "Interior - Barra"
+    },
+    {
+      "id": "5",
+      "numero": 5,
+      "capacidad": 8,
+      "estado": "fuera_servicio",
+      "ubicacion": "Salón privado"
+    }
+  ],
+  "menu": [
+    {
+      "id": "p1",
+      "nombre": "Lomo saltado",
+      "precio": 18,
+      "stock": 5,
+      "descripcion": "Clásico peruano con papas fritas"
+    },
+    {
+      "id": "p2",
+      "nombre": "Arroz con leche",
+      "precio": 8,
+      "stock": 10,
+      "descripcion": "Postre tradicional"
+    },
+    {
+      "id": "p3",
+      "nombre": "Sopa criolla",
+      "precio": 12,
+      "stock": 8,
+      "descripcion": "Sopa con leche y fideo"
+    },
+    {
+      "id": "p4",
+      "nombre": "Ceviche de pescado",
+      "precio": 22,
+      "stock": 6,
+      "descripcion": "Pescado fresco marinado en limón"
+    },
+    {
+      "id": "p5",
+      "nombre": "Pollo a la brasa",
+      "precio": 20,
+      "stock": 4,
+      "descripcion": "Pollo entero con papas y ensalada"
+    },
+    {
+      "id": "p6",
+      "nombre": "Ají de gallina",
+      "precio": 16,
+      "stock": 7,
+      "descripcion": "Tradicional guiso cremoso"
+    },
+    {
+      "id": "p7",
+      "nombre": "Causa limeña",
+      "precio": 14,
+      "stock": 9,
+      "descripcion": "Terrina de papa con pollo y palta"
+    },
+    {
+      "id": "p8",
+      "nombre": "Pisco sour",
+      "precio": 15,
+      "stock": 20,
+      "descripcion": "Cóctel peruano clásico"
+    }
+  ],
+  "pedidos": [
+    {
+      "_id": "ped-001",
+      "mesaId": 2,
+      "tipo": "mesa",
+      "estado": "pendiente",
+      "items": [
+        {
+          "platoId": "p4",
+          "nombre": "Ceviche de pescado",
+          "precioUnitario": 22,
+          "cantidad": 2
+        },
+        {
+          "platoId": "p8",
+          "nombre": "Pisco sour",
+          "precioUnitario": 15,
+          "cantidad": 2
+        }
+      ],
+      "total": 74,
+      "creadoEn": "2026-08-19T12:30:00.000Z"
+    },
+    {
+      "_id": "ped-002",
+      "mesaId": 3,
+      "tipo": "mesa",
+      "estado": "en_preparacion",
+      "items": [
+        {
+          "platoId": "p1",
+          "nombre": "Lomo saltado",
+          "precioUnitario": 18,
+          "cantidad": 1
+        },
+        {
+          "platoId": "p3",
+          "nombre": "Sopa criolla",
+          "precioUnitario": 12,
+          "cantidad": 2
+        },
+        {
+          "platoId": "p5",
+          "nombre": "Pollo a la brasa",
+          "precioUnitario": 20,
+          "cantidad": 1
+        }
+      ],
+      "total": 62,
+      "creadoEn": "2026-08-19T12:15:00.000Z"
+    }
+  ]
+}

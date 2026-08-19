@@ -1,3 +1,4 @@
 {
+  "/comandas/page": "app/comandas/page.js",
   "/page": "app/page.js"
 }
