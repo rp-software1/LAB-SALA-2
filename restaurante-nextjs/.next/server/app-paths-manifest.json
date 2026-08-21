@@ -1,7 +1,10 @@
 {
-  "/comandas/page": "app/comandas/page.js",
-  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/carrito/page": "app/carrito/page.js",
-  "/menu/page": "app/menu/page.js",
-  "/mesas/page": "app/mesas/page.js"
+  "/mesas/[id]/page": "app/mesas/[id]/page.js",
+  "/page": "app/page.js",
+  "/mesas/page": "app/mesas/page.js",
+  "/comandas/page": "app/comandas/page.js",
+  "/mesa/[mesaId]/page": "app/mesa/[mesaId]/page.js",
+  "/menu/page": "app/menu/page.js"
 }

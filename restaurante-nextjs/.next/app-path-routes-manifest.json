@@ -1,10 +1,10 @@
 {
+  "/_not-found/page": "/_not-found",
   "/carrito/page": "/carrito",
   "/mesas/[id]/page": "/mesas/[id]",
-  "/mesa/[mesaId]/page": "/mesa/[mesaId]",
   "/page": "/",
   "/mesas/page": "/mesas",
-  "/menu/page": "/menu",
   "/comandas/page": "/comandas",
-  "/_not-found/page": "/_not-found"
+  "/mesa/[mesaId]/page": "/mesa/[mesaId]",
+  "/menu/page": "/menu"
 }
