@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_PE",
     siteName: "Restaurante App",
+    url: "https://restaurante-nextjs-rho.vercel.app",
   },
   twitter: {
     card: "summary_large_image",
