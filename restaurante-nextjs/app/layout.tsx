@@ -1,15 +1,6 @@
 import type { Metadata } from "next";
-import NavBar from "./components/NavBar";
-import "./globals.css";
+import "./globals.css";git add .
 
-// ============================================================
-// DÍA 6 — Layout Metadata
-//
-// - title.template: las páginas hijas usan "%s — Sistema de Restaurante"
-// - title.default: si una página no define title, usa este
-// - robots: no indexar ni seguir (app interna)
-// - openGraph / twitter: metadata de redes sociales
-// ============================================================
 export const metadata: Metadata = {
   title: {
     template: "%s — Sistema de Restaurante",
@@ -44,7 +35,6 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="min-h-screen bg-gray-50 text-gray-900 antialiased">
-        <NavBar />
         <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
       </body>
     </html>
